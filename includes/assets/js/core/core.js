@@ -900,6 +900,18 @@ $(function () {
     if (typeof tinyMCE !== "undefined") {
       tinyMCE.triggerSave();
     }
+
+    const originalDates = {};
+    element.find('input[type="datetime-local"], input[type="date"], input[type="time"]').each(function () {
+        var input = $(this);
+        var localDate = new Date(input.val());
+
+        if (!isNaN(localDate.getTime())) {
+            originalDates[input.attr("name")] = input.val();
+            input.val(localDate.toISOString().slice(0, 19).replace("T", " ")); // Convert to UTC format
+        }
+    });
+
     /* get ajax response */
     var data = (element.hasClass('js_ajax-forms')) ? element.serialize() : element.find('select, textarea, input').serialize();
     $.post(ajax_path + url, data, function (response) {
@@ -938,7 +950,12 @@ $(function () {
           /* reset reCAPTCHA */
           grecaptcha.reset();
         }
-      });
+      })
+        .always(function () {
+            Object.keys(originalValues).forEach(function (name) {
+                element.find(`[name="${name}"]`).val(originalValues[name]);
+            });
+        });
   }
   $('body').on('submit', '.js_ajax-forms', function (e) {
     e.preventDefault();
