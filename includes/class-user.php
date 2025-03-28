@@ -399,6 +399,44 @@ class User
   }
 
 
+  /* ------------------------------- */
+  /* System Timezones ✅ */
+  /* ------------------------------- */
+
+  /**
+   * get_timezones
+   * 
+   * @return array
+   */
+  public function get_timezones()
+  {
+    global $db, $system;
+    $timezones = [];
+    $get_timezones  = $db->query("SELECT * FROM system_time_zones WHERE enabled = '1' ORDER BY time_zone_order ASC");
+    if ($get_timezones->num_rows > 0) {
+      while ($timezone = $get_timezones->fetch_assoc()) {
+        $timezone['time_zone_name'] = __($timezone['time_zone_name']);
+        $timezones[] = $timezone;
+      }
+    }
+    return $timezones;
+  }
+
+  /**
+   * check_timezone
+   * 
+   * @param integer $timezone_id
+   * @return boolean
+   */
+  public function check_timezone($timezone_id)
+  {
+    global $db;
+    $check = $db->query(sprintf("SELECT COUNT(*) as count FROM system_time_zones WHERE time_zone_id = %s", secure($timezone_id, 'int')));
+    if ($check->fetch_assoc()['count'] > 0) {
+      return true;
+    }
+    return false;
+  }
 
   /* ------------------------------- */
   /* System Currencies ✅ */
@@ -21608,6 +21646,14 @@ class User
             throw new Exception(__("You must select valid country"));
           }
         }
+        /* validate timezone */
+        if ($args['timezone'] == "none") {
+          throw new Exception(__("You must select valid timezone"));
+        } else {
+          if (!$this->check_timezone($args['timezone'])) {
+            throw new Exception(__("You must select valid timezone"));
+          }
+        }
         /* validate birthdate */
         if ($args['birth_month'] == "none" && $args['birth_day'] == "none" && $args['birth_year'] == "none") {
           $args['birth_date'] = 'null';
@@ -21643,7 +21689,7 @@ class User
         /* set custom fields */
         $this->set_custom_fields($args, "user", "settings", $this->_data['user_id']);
         /* update user */
-        $db->query(sprintf("UPDATE users SET user_firstname = %s, user_lastname = %s, user_gender = %s, user_country = %s, user_birthdate = %s, user_relationship = %s, user_biography = %s, user_website = %s WHERE user_id = %s", secure($args['firstname']), secure($args['lastname']), secure($args['gender']), secure($args['country'], 'int'), secure($args['birth_date']), secure($args['relationship']), secure($args['biography']), secure($args['website']), secure($this->_data['user_id'], 'int')));
+        $db->query(sprintf("UPDATE users SET user_firstname = %s, user_lastname = %s, user_gender = %s, user_country = %s, user_birthdate = %s, user_relationship = %s, user_biography = %s, user_website = %s, user_time_zone = %s WHERE user_id = %s", secure($args['firstname']), secure($args['lastname']), secure($args['gender']), secure($args['country'], 'int'), secure($args['birth_date']), secure($args['relationship']), secure($args['biography']), secure($args['website']), secure($args['timezone']), secure($this->_data['user_id'], 'int')));
         /* verification badge */
         if ($this->_data['user_verified'] && ($this->_data['user_firstname'] !=  $args['firstname'] || $this->_data['user_lastname'] !=  $args['lastname'])) {
           $db->query(sprintf("UPDATE users SET user_verified = '0' WHERE user_id = %s", secure($this->_data['user_id'], 'int')));

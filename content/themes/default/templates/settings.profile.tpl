@@ -67,8 +67,20 @@
           </select>
         </div>
 
+        <div class="form-group col-md-6">
+          <label class="form-label">{__("Timezone")}</label>
+          <select class="form-select" name="timezone">
+            <option value="none">{__("Select Timezone")}</option>
+            {foreach $timezones as $timezone}
+            <option {if $user->_data['user_time_zone'] == $timezone['time_zone_id']}selected{/if} value="{$timezone['time_zone_id']}">
+                {$timezone['time_zone_name']} (UTC{if $timezone['utc_offset'] >= 0}+{/if}{$timezone['utc_offset']})
+            </option>
+            {/foreach}
+          </select>
+        </div>
+
         {if $system['website_info_enabled']}
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-14">
             <label class="form-label">{__("Website")}</label>
             <input type="text" class="form-control" name="website" value="{$user->_data['user_website']}">
             <div class="form-text">

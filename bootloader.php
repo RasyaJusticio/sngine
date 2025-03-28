@@ -43,8 +43,11 @@ try {
     // get countries
     if ($system['2checkout_enabled'] || $system['authorize_net_enabled'] || $system['newsfeed_location_filter_enabled']) {
       $countries = $user->get_countries();
+      $timezones = $user->get_timezones();
+
       /* assign variables */
       $smarty->assign('countries', $countries);
+      $smarty->assign('timezones', $timezones);
     }
   }
 
@@ -55,7 +58,6 @@ try {
 
   // get static pages
   $smarty->assign('static_pages', $user->get_static_pages());
-
 
   // get ads (header & footer)
   $ads_master['header'] = $user->ads('header');
