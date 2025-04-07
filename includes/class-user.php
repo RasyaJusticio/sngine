@@ -423,6 +423,36 @@ class User
   }
 
   /**
+   * get_timezone
+   * 
+   * @param integer $timezone_id
+   * @return array|null
+   */
+  public function get_timezone($timezone_id)
+  {
+    global $db;
+    $query = $db->query(sprintf("SELECT * FROM system_time_zones WHERE time_zone_id = %s AND enabled = '1' LIMIT 1", secure($timezone_id, 'int')));
+    if ($query->num_rows > 0) {
+      $timezone = $query->fetch_assoc();
+      $timezone['time_zone_name'] = __($timezone['time_zone_name']);
+      return $timezone;
+    }
+    return null;
+  }
+
+  /**
+  * get_user_timezone
+  *
+  * @return string
+  */
+  public function get_user_timezone()
+  {
+    $timezone = $this->get_timezone($this->_data['user_time_zone']);
+    
+    return $timezone ? $timezone['time_zone_name'] : 'UTC'; 
+  }
+
+  /**
    * check_timezone
    * 
    * @param integer $timezone_id
@@ -436,6 +466,26 @@ class User
       return true;
     }
     return false;
+  }
+
+  /**
+   * convert_timezone
+   * 
+   * @param string $datetime    Datetime string (e.g., "2025-04-07 15:00:00")
+   * @param string $from_tz     Source timezone (e.g., "Asia/Jakarta")
+   * @param string $to_tz       Target timezone (e.g., "America/New_York")
+   * @param string $format      Output format (default: "Y-m-d H:i:s")
+   * @return string             Converted datetime string
+   */
+  function convert_timezone($datetime, $from_tz, $to_tz, $format = 'Y-m-d H:i:s')
+  {
+    try {
+      $date = new DateTime($datetime, new DateTimeZone($from_tz));
+      $date->setTimezone(new DateTimeZone($to_tz));
+      return $date->format($format);
+    } catch (Exception $e) {
+      return false;
+    }
   }
 
   /* ------------------------------- */

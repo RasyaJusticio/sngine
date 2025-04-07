@@ -40,7 +40,7 @@ try {
       $user->check_user_package();
     }
 
-    // get countries
+    // get countries & timezones
     if ($system['2checkout_enabled'] || $system['authorize_net_enabled'] || $system['newsfeed_location_filter_enabled']) {
       $countries = $user->get_countries();
       $timezones = $user->get_timezones();
@@ -48,13 +48,18 @@ try {
       /* assign variables */
       $smarty->assign('countries', $countries);
       $smarty->assign('timezones', $timezones);
+      $smarty->assign('user_time_zone', $user->get_user_timezone());
     }
+
   }
 
 
   // init affiliates system
   $user->init_affiliates();
 
+  $smarty->registerPlugin("modifier", "to_local_timezone", function($value) use ($user) {
+      return $user->convert_timezone($value, "UTC", $user->get_user_timezone());
+  });
 
   // get static pages
   $smarty->assign('static_pages', $user->get_static_pages());
