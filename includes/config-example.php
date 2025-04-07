@@ -47,3 +47,9 @@ define('DEBUGGING', false);
  * A unique key for your licence.
  */
 define('LICENCE_KEY', '');
+
+// ** Exchange Rate API Key ** //
+define("EXCHANGE_RATE_API_KEY", '');
+
+// ** CRON Password //
+define("CRON_KEY", '');
