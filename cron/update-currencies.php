@@ -72,6 +72,14 @@ foreach ($currencies as $currency) {
                 secure($id, 'int')
             )
         );
+
+        $db->query(
+            sprintf(
+                "INSERT INTO currency_rate_history (currency_id, currency_rate) VALUES (%s, %s)",
+                secure($id),
+                secure($conversion_rates[$code], 'float')
+            )
+        );
     }
 }
 

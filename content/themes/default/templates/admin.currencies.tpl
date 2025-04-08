@@ -312,3 +312,36 @@
 
   {/if}
 </div>
+
+{if $sub_view == ""}
+<div class="card">
+  <div class="card-header with-icon">
+    <i class="fa fa-clock-rotate-left mr10"></i>{__("Currency Rate History")}
+  </div>
+  <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover js_dataTable">
+          <thead>
+            <tr>
+              <th>{__("ID")}</th>
+              <th>{__("Currency")}</th>
+              <th>{__("Exchange Rate")}</th>
+              <th>{__("Retrived At")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {foreach $history_rows as $row}
+              <tr>
+                <td>{$row['id']}</td>
+                <td>{$row['currency_code']}</td>
+                <td>{$row['currency_rate']}</td>
+                <td>{$row['retrieved_at']}</td>
+              </tr>
+            {/foreach}
+          </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+{/if}
+
