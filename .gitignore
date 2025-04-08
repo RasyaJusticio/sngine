@@ -3,6 +3,9 @@ vendor/
 
 includes/config.php
 
+content/themes/default/templates_compiled/*
+!content/themes/default/templates_compiled/index.html
+
 content/uploads/*
 !content/uploads/index.html
 !content/uploads/videos/
