@@ -131,6 +131,22 @@ if ($user->_is_admin) {
   $control_panel['url'] = "modcp";
 }
 
+// get currency based on user's country
+$country = $user->get_country($user->_data['user_country']);
+
+if ($country) {
+  $currency = $user->get_currency($country['currency_id']);
+
+  if ($currency) {
+      $system['current_currency'] = $currency['code'];
+      $system['current_currency_id'] = $currency['currency_id'];
+      $system['current_currency_symbol'] = $currency['symbol'];
+      $system['current_currency_dir'] = $currency['dir'];
+      $system['current_currency_rate'] = $currency['exchange_rate'];
+      $system['current_currency_digits'] = $currency['digits'];
+      $system['current_currency_fraction_digits'] = $currency['fraction_digits'];
+  }
+}
 
 // assign global varibles
 $smarty->assign('secret', $_SESSION['secret']);

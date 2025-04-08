@@ -258,7 +258,7 @@ function init_db_connection($db_host = null, $db_user = null, $db_password = nul
  */
 function init_system(&$system)
 {
-  global $db, $gettextTranslator;
+  global $db, $user, $gettextTranslator;
   $get_system_options = $db->query("SELECT * FROM system_options");
   while ($system_option = $get_system_options->fetch_assoc()) {
     $system[$system_option['option_name']] = $system_option['option_value'];
@@ -424,6 +424,15 @@ function init_system(&$system)
   $system['system_currency_id'] = $currency['currency_id'];
   $system['system_currency_symbol'] = $currency['symbol'];
   $system['system_currency_dir'] = $currency['dir'];
+  $system['system_currency_rate'] = $currency['exchange_rate'];
+ 
+  $system['current_currency'] = $currency['code'];
+  $system['current_currency_id'] = $currency['currency_id'];
+  $system['current_currency_symbol'] = $currency['symbol'];
+  $system['current_currency_dir'] = $currency['dir'];
+  $system['current_currency_rate'] = $currency['exchange_rate'];
+  $system['current_currency_digits'] = $currency['digits'];
+  $system['current_currency_fraction_digits'] = $currency['fraction_digits'];
 
   /* get system withdrawal method array */
   $system['wallet_payment_method_array'] = explode(",", $system['wallet_payment_method']);
@@ -453,6 +462,7 @@ function init_smarty()
   $smarty->registerPlugin("modifier", "ucfirst", "ucfirst");
   $smarty->registerPlugin('modifier', '__', '__');
   $smarty->registerPlugin('modifier', 'print_money', 'print_money');
+  $smarty->registerPlugin('modifier', 'convert_money', 'convert_money');
   $smarty->registerPlugin('modifier', 'is_empty', 'is_empty');
   $smarty->registerPlugin('modifier', 'array_reverse', 'array_reverse');
   $smarty->registerPlugin('modifier', 'htmlentities', 'htmlentities');
@@ -466,13 +476,14 @@ function init_smarty()
   $smarty->registerPlugin('modifier', 'count', 'count');
   $smarty->registerPlugin('modifier', 'explode', 'explode');
   $smarty->registerPlugin('modifier', 'date', 'date');
-  $smarty->registerPlugin('modifier', 'number_format', 'number_format');
+  $smarty->registerPlugin('modifier', 'number_format', 'format_money');
   $smarty->registerPlugin('modifier', 'strtolower', 'strtolower');
   $smarty->registerPlugin('modifier', 'get_payment_vat_value', 'get_payment_vat_value');
   $smarty->registerPlugin('modifier', 'get_payment_total_value', 'get_payment_total_value');
   $smarty->registerPlugin('modifier', 'get_payment_fees_value', 'get_payment_fees_value');
   $smarty->registerPlugin('modifier', 'get_payment_vat_percentage', 'get_payment_vat_percentage');
   $smarty->registerPlugin('modifier', 'implode', 'implode');
+  $smarty->registerPlugin('function', 'money_placeholder', 'money_placeholder');
   return $smarty;
 }
 
@@ -7450,8 +7461,8 @@ function get_array_key($array, $current, $offset = 1)
 function print_money($amount, $symbol = null, $dir = null)
 {
   global $system;
-  $symbol = ($symbol) ? $symbol : $system['system_currency_symbol'];
-  $dir = ($dir) ? $dir : $system['system_currency_dir'];
+  $symbol = ($symbol) ? $symbol : $system['current_currency_symbol'];
+  $dir = ($dir) ? $dir : $system['current_currency_dir'];
   if ($dir == "right") {
     return $amount . $symbol;
   } else {
@@ -7459,6 +7470,33 @@ function print_money($amount, $symbol = null, $dir = null)
   }
 }
 
+function convert_money($value, $exchange_rate = null) {
+    global $system;
+    
+    $rate = isset($exchange_rate) ? $exchange_rate : $system['current_currency_rate'];
+
+    return $value * $rate; 
+}
+
+function format_money($value, $fraction_digits = null, $decimal_separator = ".", $thousands_separator = ",") {
+    global $system;
+
+    $decimals = isset($fraction_digits) ? $fraction_digits : $system['current_currency_fraction_digits'];
+
+    return number_format($value, $decimals, $decimal_separator, $thousands_separator);
+}
+
+function money_placeholder() {
+    global $system;
+
+    $result = str_repeat('0', $system['current_currency_digits']);
+
+    if ($system['current_currency_fraction_digits'] > 0) {
+        $result = $result . '.' . str_repeat('0', $system['current_currency_fraction_digits']); 
+    }
+    
+    return $result;
+}
 
 /**
  * abbreviate_count
