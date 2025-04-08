@@ -35,7 +35,7 @@ try {
       /* prepare */
       $_POST['enabled'] = (isset($_POST['enabled'])) ? '1' : '0';
       /* update */
-      $db->query(sprintf("UPDATE system_currencies SET enabled = %s, name = %s, code = %s, symbol = %s, dir = %s WHERE currency_id = %s", secure($_POST['enabled']), secure($_POST['name']), secure($_POST['code']), secure($_POST['symbol']), secure($_POST['dir']), secure($_GET['id'], 'int')));
+      $db->query(sprintf("UPDATE system_currencies SET enabled = %s, name = %s, code = %s, exchange_rate = %s, symbol = %s, dir = %s, digits = %s, fraction_digits = %s WHERE currency_id = %s", secure($_POST['enabled']), secure($_POST['name']), secure($_POST['code']), secure($_POST['exchange_rate']), secure($_POST['symbol']), secure($_POST['dir']), secure($_POST['digits']), secure($_POST['fraction_digits']), secure($_GET['id'], 'int')));
       /* return */
       return_json(['success' => true, 'message' => __("Language info have been updated")]);
       break;
@@ -44,7 +44,7 @@ try {
       /* prepare */
       $_POST['enabled'] = (isset($_POST['enabled'])) ? '1' : '0';
       /* insert */
-      $db->query(sprintf("INSERT INTO system_currencies (enabled, name, code, symbol, dir) VALUES (%s, %s, %s, %s, %s)", secure($_POST['enabled']), secure($_POST['name']), secure($_POST['code']), secure($_POST['symbol']), secure($_POST['dir'])));
+      $db->query(sprintf("INSERT INTO system_currencies (enabled, name, code, exchange_rate, symbol, dir, digits, fraction_digits) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", secure($_POST['enabled']), secure($_POST['name']), secure($_POST['code']), secure($_POST['exchange_rate']), secure($_POST['symbol']), secure($_POST['dir']), secure($_POST['digits']), secure($_POST['fraction_digits'])));
       /* return */
       return_json(['callback' => 'window.location = "' . $system['system_url'] . '/' . $control_panel['url'] . '/currencies";']);
       break;
