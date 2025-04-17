@@ -6706,6 +6706,7 @@ msgstr ""
 #: content/themes/default/templates/admin.announcements.tpl:231
 #: content/themes/default/templates/settings.security.tpl:42
 #: content/themes/default/templates/settings.security.tpl:192
+#: content/themes/default/templates/admin.timezones.tpl
 msgid "Save Changes"
 msgstr ""
 
@@ -22584,3 +22585,86 @@ msgstr ""
 #: webhooks/coinpayments.php:178
 msgid "Transaction complete successfully"
 msgstr ""
+
+#: content/themes/default/templates/admin.timezones.tpl
+#: content/themes/default/templates/admin.tpl
+msgid "Timezones"
+msgstr "Zona Waktu"
+
+#: content/themes/default/templates/admin.timezones.tpl
+#: content/themes/default/templates/settings.profile.tpl
+msgid "Timezone"
+msgstr "Zona Waktu"
+
+#: content/themes/default/templates/admin.timezones.tpl
+msgid "Timezone Name"
+msgstr "Nama Zona Waktu"
+
+#: content/themes/default/templates/admin.timezones.tpl
+msgid "Add New Timezones"
+msgstr "Tambahkan Zona Waktu Baru"
+
+#: content/themes/default/templates/admin.timezones.tpl
+msgid "Add New Timezone"
+msgstr "Tambahkan Zona Waktu Baru"
+
+#: content/themes/default/templates/settings.profile.tpl
+msgid "Select Timezone"
+msgstr "Pilih Zona Waktu"
+
+#: content/themes/default/templates/admin.timezones.tpl
+msgid "UTC Offset"
+msgstr "Perbedaan UTC"
+
+#: content/themes/default/templates/admin.timezones.tpl
+msgid "UTC Offset, for example: 7.00, -7.00, 12.30"
+msgstr "Offset UTC, misalnya: 7.00, -7.00, 12.30"
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Rate"
+msgstr "Kurs"
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Exchange Rate"
+msgstr "Kurs"
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Currency Exchange Rate"
+msgstr "Nilai Tukar Mata Uang"
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Exchange rate of the currency from USD"
+msgstr "Nilai tukar mata uang dari USD"
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Currency Digits"
+msgstr "Digit Mata Uang"
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "How many digits does a currency normally have, for example: USD have 1 ($0), IDR have 4 (Rp 0000)"
+msgstr "Berapa jumlah digit normal suatu mata uang, misalnya: USD memiliki 1 ($0), IDR memiliki 4 (Rp 0000)"
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Currency Fraction Digits"
+msgstr "Digit Pecahan Mata Uang"
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "How many decimals after the value, for example: USD have 2 ($0.00), IDR have 0 (Rp 0000)"
+msgstr "Berapa banyak desimal setelah nilai, misalnya: USD memiliki 2 ($0.00), IDR memiliki 0 (Rp 0000)"
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Currency Rate History"
+msgstr "Riwayat Nilai Mata Uang"
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Retrieved At"
+msgstr "Diperoleh Pada"
+
+
+
+
+
+
+
+
+

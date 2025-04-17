@@ -326,7 +326,7 @@
               <th>{__("ID")}</th>
               <th>{__("Currency")}</th>
               <th>{__("Exchange Rate")}</th>
-              <th>{__("Retrived At")}</th>
+              <th>{__("Retrieved At")}</th>
             </tr>
           </thead>
           <tbody>

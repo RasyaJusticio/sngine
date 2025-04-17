@@ -25317,3 +25317,77 @@ msgstr ""
 
 #~ msgid "User Profile"
 #~ msgstr "Perfil de usuário"
+
+#: content/themes/default/templates/admin.timezones.tpl
+#: content/themes/default/templates/admin.tpl
+msgid "Timezones"
+msgstr ""
+
+#: content/themes/default/templates/admin.timezones.tpl
+#: content/themes/default/templates/settings.profile.tpl
+msgid "Timezone"
+msgstr ""
+
+#: content/themes/default/templates/admin.timezones.tpl
+msgid "Timezone Name"
+msgstr ""
+
+#: content/themes/default/templates/admin.timezones.tpl
+msgid "Add New Timezones"
+msgstr ""
+
+#: content/themes/default/templates/admin.timezones.tpl
+msgid "Add New Timezone"
+msgstr ""
+
+#: content/themes/default/templates/settings.profile.tpl
+msgid "Select Timezone"
+msgstr ""
+
+#: content/themes/default/templates/admin.timezones.tpl
+msgid "UTC Offset"
+msgstr ""
+
+#: content/themes/default/templates/admin.timezones.tpl
+msgid "UTC Offset, for example: 7.00, -7.00, 12.30"
+msgstr ""
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Rate"
+msgstr ""
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Exchange Rate"
+msgstr ""
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Currency Exchange Rate"
+msgstr ""
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Exchange rate of the currency from USD"
+msgstr ""
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Currency Digits"
+msgstr ""
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "How many digits does a currency normally have, for example: USD have 1 ($0), IDR have 4 (Rp 0000)"
+msgstr ""
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Currency Fraction Digits"
+msgstr ""
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "How many decimals after the value, for example: USD have 2 ($0.00), IDR have 0 (Rp 0000)"
+msgstr ""
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Currency Rate History"
+msgstr ""
+
+#: content/themes/default/templates/admin.currencies.tpl
+msgid "Retrieved At"
+msgstr ""
