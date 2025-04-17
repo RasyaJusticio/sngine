@@ -61,67 +61,67 @@
             {if $wallet_transfer_amount}
               <div class="alert alert-success mb20">
                 <i class="fas fa-check-circle mr5"></i>
-                {__("Your")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_transfer_amount|number_format:2)}</span> {__("transfer transaction successfuly sent")}
+                {__("Your")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_transfer_amount|convert_money|format_money)}</span> {__("transfer transaction successfuly sent")}
               </div>
             {/if}
             {if $wallet_replenish_amount}
               <div class="alert alert-success mb20">
                 <i class="fas fa-check-circle mr5"></i>
-                {__("Congratulation! Your wallet credit replenished successfully with")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_replenish_amount|number_format:2)}</span>
+                {__("Congratulation! Your wallet credit replenished successfully with")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_replenish_amount|convert_money|format_money)}</span>
               </div>
             {/if}
             {if $wallet_withdraw_affiliates_amount}
               <div class="alert alert-success mb20">
                 <i class="fas fa-check-circle mr5"></i>
-                {__("Congratulation! Your wallet credit replenished successfully with")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_withdraw_affiliates_amount|number_format:2)}</span> {__("from your affiliates credit")}
+                {__("Congratulation! Your wallet credit replenished successfully with")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_withdraw_affiliates_amount|convert_money|format_money)}</span> {__("from your affiliates credit")}
               </div>
             {/if}
             {if $wallet_withdraw_points_amount}
               <div class="alert alert-success mb20">
                 <i class="fas fa-check-circle mr5"></i>
-                {__("Congratulation! Your wallet credit replenished successfully with")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_withdraw_points_amount|number_format:2)}</span> {__("from your points credit")}
+                {__("Congratulation! Your wallet credit replenished successfully with")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_withdraw_points_amount|convert_money|format_money)}</span> {__("from your points credit")}
               </div>
             {/if}
             {if $wallet_withdraw_market_amount}
               <div class="alert alert-success mb20">
                 <i class="fas fa-check-circle mr5"></i>
-                {__("Congratulation! Your wallet credit replenished successfully with")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_withdraw_market_amount|number_format:2)}</span> {__("from your market credit")}
+                {__("Congratulation! Your wallet credit replenished successfully with")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_withdraw_market_amount|convert_money|format_money)}</span> {__("from your market credit")}
               </div>
             {/if}
             {if $wallet_withdraw_funding_amount}
               <div class="alert alert-success mb20">
                 <i class="fas fa-check-circle mr5"></i>
-                {__("Congratulation! Your wallet credit replenished successfully with")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_withdraw_funding_amount|number_format:2)}</span> {__("from your funding credit")}
+                {__("Congratulation! Your wallet credit replenished successfully with")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_withdraw_funding_amount|convert_money|format_money)}</span> {__("from your funding credit")}
               </div>
             {/if}
             {if $wallet_withdraw_monetization_amount}
               <div class="alert alert-success mb20">
                 <i class="fas fa-check-circle mr5"></i>
-                {__("Congratulation! Your wallet credit replenished successfully with")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_withdraw_monetization_amount|number_format:2)}</span> {__("from your monetization credit")}
+                {__("Congratulation! Your wallet credit replenished successfully with")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_withdraw_monetization_amount|convert_money|format_money)}</span> {__("from your monetization credit")}
               </div>
             {/if}
             {if $wallet_package_payment_amount}
               <div class="alert alert-success mb20">
                 <i class="fas fa-check-circle mr5"></i>
-                {__("Your")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_package_payment_amount|number_format:2)}</span> {__("payment transaction successfuly done")}
+                {__("Your")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_package_payment_amount|convert_money|format_money)}</span> {__("payment transaction successfuly done")}
               </div>
             {/if}
             {if $wallet_monetization_payment_amount}
               <div class="alert alert-success mb20">
                 <i class="fas fa-check-circle mr5"></i>
-                {__("Your")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_monetization_payment_amount|number_format:2)}</span> {__("payment transaction successfuly done")}
+                {__("Your")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_monetization_payment_amount|convert_money|format_money)}</span> {__("payment transaction successfuly done")}
               </div>
             {/if}
             {if $wallet_paid_post_amount}
               <div class="alert alert-success mb20">
                 <i class="fas fa-check-circle mr5"></i>
-                {__("Your")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_paid_post_amount|number_format:2)}</span> {__("payment transaction successfuly done")}
+                {__("Your")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_paid_post_amount|convert_money|format_money)}</span> {__("payment transaction successfuly done")}
               </div>
             {/if}
             {if $wallet_donate_amount}
               <div class="alert alert-success mb20">
                 <i class="fas fa-check-circle mr5"></i>
-                {__("Your")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_donate_amount|number_format:2)}</span> {__("payment transaction successfuly done")}
+                {__("Your")} <span class="badge rounded-pill badge-lg bg-secondary">{print_money($wallet_donate_amount|convert_money|format_money)}</span> {__("payment transaction successfuly done")}
               </div>
             {/if}
 
@@ -135,7 +135,7 @@
                   <div class="stat-cell small">
                     <i class="fa fa-money-bill-alt bg-icon"></i>
                     <div class="h3 mtb10">
-                      {print_money($user->_data['user_wallet_balance']|number_format:2)}
+                      {print_money($user->_data['user_wallet_balance']|convert_money|format_money)}
                     </div>
                   </div>
                 </div>
@@ -218,10 +218,10 @@
                             <td>
                               {if $transaction['type'] == "out"}
                                 <span class="badge rounded-pill badge-lg bg-danger mr5"><i class="far fa-arrow-alt-circle-down"></i></span>
-                                <strong class="text-danger">{print_money($transaction['amount']|number_format:2)}</strong>
+                                <strong class="text-danger">{print_money($transaction['amount']|convert_money|format_money)}</strong>
                               {else}
                                 <span class="badge rounded-pill badge-lg bg-success mr5"><i class="far fa-arrow-alt-circle-up"></i></span>
-                                <strong class="text-success">{print_money($transaction['amount']|number_format:2)}</strong>
+                                <strong class="text-success">{print_money($transaction['amount']|convert_money|format_money)}</strong>
                               {/if}
                             </td>
                             <td>
@@ -312,7 +312,7 @@
                 <div class="col-md-9">
                   <h6>
                     <span class="badge badge-lg bg-info">
-                      {print_money($user->_data['user_wallet_balance']|number_format:2)}
+                      {print_money($user->_data['user_wallet_balance']|convert_money|format_money)}
                     </span>
                   </h6>
                 </div>
@@ -325,7 +325,7 @@
                 <div class="col-md-9">
                   <input type="text" class="form-control" name="amount">
                   <div class="form-text">
-                    {__("The minimum withdrawal request amount is")} {print_money($system['wallet_min_withdrawal'])}
+                    {__("The minimum withdrawal request amount is")} {print_money($system['wallet_min_withdrawal']|convert_money)}
                   </div>
                 </div>
               </div>
@@ -412,7 +412,7 @@
                     {foreach $payments as $payment}
                       <tr>
                         <td>{$payment@iteration}</td>
-                        <td>{print_money($payment['amount']|number_format:2)}</td>
+                        <td>{print_money($payment['amount']|convert_money|format_money)}</td>
                         <td>
                           {if $payment['method'] == "custom"}
                             {$system['wallet_payment_method_custom']}

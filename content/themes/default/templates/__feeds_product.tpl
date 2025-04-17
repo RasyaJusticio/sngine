@@ -1,4 +1,4 @@
-<div class="col-md-6 col-lg-4">
+<RasyaJusticio/snginediv class="col-md-6 col-lg-4">
   <div class="card product {if $_boosted}boosted{/if}">
     {if $_boosted}
       <div class="boosted-icon" data-bs-toggle="tooltip" title="{__("Promoted")}">
@@ -15,7 +15,7 @@
       <div class="product-image">
         <div class="product-price">
           {if $post['product']['price'] > 0}
-            {print_money($post['product']['price'])}
+            {print_money($post['product']['price']|convert_money|format_money)}
           {else}
             {__("Free")}
           {/if}

@@ -8,7 +8,7 @@
       <div class="text">
         <strong>{__("Points System")}</strong><br>
         {if $system['points_per_currency'] > 0}
-          {__("Each")} <strong>{$system['points_per_currency']}</strong> {__("points equal")} <strong>{print_money("1")}</strong>.
+          {__("Each")} <strong>{$system['points_per_currency']}</strong> {__("points equal")} <strong>{print_money(1|convert_money|format_money)}</strong>.
           <br>
         {/if}
         {__("Your daily points limit is")} <strong><span class="badge rounded-pill bg-warning">{if $system['packages_enabled'] && $user->_data['user_subscribed']}{$system['points_limit_pro']}{else}{$system['points_limit_user']}{/if}</span></strong> {__("Points")}, {__("You have")} <strong><span class="badge rounded-pill bg-danger">{$remaining_points}</span></strong> {__("remaining points")}
@@ -142,7 +142,7 @@
             <div class="stat-cell">
               <i class="fa fas fa-donate bg-icon"></i>
               <div class="h3 mtb10">
-                {print_money(((1/$system['points_per_currency'])*$user->_data['user_points'])|number_format:2)}
+                {print_money(((1/$system['points_per_currency'])*$user->_data['user_points'])|convert_money|format_money)}
               </div>
             </div>
           </div>
@@ -219,7 +219,7 @@
           <div class="col-md-9">
             <h6>
               <span class="badge badge-lg bg-info">
-                {print_money(((1/$system['points_per_currency'])*$user->_data['user_points'])|number_format:2)}
+                {print_money(((1/$system['points_per_currency'])*$user->_data['user_points'])|convert_money|format_money)}
               </span>
             </h6>
           </div>
@@ -232,7 +232,7 @@
           <div class="col-md-9">
             <input type="text" class="form-control" name="amount">
             <div class="form-text">
-              {__("The minimum withdrawal request amount is")} {print_money($system['points_min_withdrawal'])}
+              {__("The minimum withdrawal request amount is")} {print_money($system['points_min_withdrawal'], "$", "left")}
             </div>
           </div>
         </div>
@@ -323,7 +323,7 @@
               {foreach $payments as $payment}
                 <tr>
                   <td>{$payment@iteration}</td>
-                  <td>{print_money($payment['amount']|number_format:2)}</td>
+                  <td>{print_money($payment['amount']|convert_money|format_money)}</td>
                   <td>
                     {if $payment['method'] == "custom"}
                       {$system['points_payment_method_custom']}

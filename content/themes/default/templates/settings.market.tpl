@@ -28,7 +28,7 @@
           <div class="col-md-9">
             <h6>
               <span class="badge badge-lg bg-info">
-                {print_money($user->_data['user_market_balance']|number_format:2)}
+                {print_money($user->_data['user_market_balance']|convert_money|format_money)}
               </span>
             </h6>
           </div>
@@ -41,7 +41,7 @@
           <div class="col-md-9">
             <input type="text" class="form-control" name="amount">
             <div class="form-text">
-              {__("The minimum withdrawal request amount is")} {print_money($system['market_min_withdrawal'])}
+              {__("The minimum withdrawal request amount is")} {print_money($system['market_min_withdrawal']|convert_money|format_money)}
             </div>
           </div>
         </div>
@@ -132,7 +132,7 @@
               {foreach $payments as $payment}
                 <tr>
                   <td>{$payment@iteration}</td>
-                  <td>{print_money($payment['amount']|number_format:2)}</td>
+                  <td>{print_money($payment['amount']|convert_money|format_money)}</td>
                   <td>
                     {if $payment['method'] == "custom"}
                       {$system['affiliate_payment_method_custom']}
@@ -173,7 +173,7 @@
           <div class="stat-cell">
             <i class="fa fas fa-donate bg-icon"></i>
             <div class="h3 mtb10">
-              {print_money($user->_data['user_market_balance']|number_format:2)}
+              {print_money($user->_data['user_market_balance']|convert_money|format_money)}
             </div>
           </div>
         </div>

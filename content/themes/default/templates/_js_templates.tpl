@@ -1365,7 +1365,7 @@
             <div class="form-group">
                 <label class="form-label" for="amount">{__("Your Wallet Credit")}</label>
                 <div>
-                  <span class="badge badge-lg bg-info">{print_money($user->_data['user_wallet_balance']|number_format:2)}</span>
+                  <span class="badge badge-lg bg-info">{print_money($user->_data['user_wallet_balance']|convert_money|format_money)}</span>
                 </div>
               </div>
               <div class="form-group">
@@ -1375,7 +1375,7 @@
                   <input class="form-control" type="text" placeholder="0.00" min="1.00" max="1000" name="amount" value="{literal}{{value}}{/literal}">
                 </div>
                 <div class="form-text">        
-                  {__("The minimum amount")}: {print_money($system['tips_min_amount'])} {__("and the maximum")}: {print_money($system['tips_max_amount'])}
+                  {__("The minimum amount")}: {print_money($system['tips_min_amount']|convert_money|format_money)} {__("and the maximum")}: {print_money($system['tips_max_amount']|convert_money|format_money)}
                 </div>
               </div>
               <!-- error -->
@@ -1419,6 +1419,7 @@
           <div class="modal-footer">
           <button type="submit" class="btn btn-primary">{__("Continue")}</button>
           </div>
+Rp 1.69
         </form>
       </script>
     
@@ -1436,14 +1437,14 @@
             {if $system['wallet_max_transfer'] != "0"}
               <div class="alert alert-info mb20">
                 <i class="fas fa-info-circle mr5"></i>
-                {__("The maximum amount you can transfer is")} <span class="badge rounded-pill badge-lg bg-light text-primary">{print_money($system['wallet_max_transfer'])}</span>
+                {__("The maximum amount you can transfer is")} <span class="badge rounded-pill badge-lg bg-light text-primary">{print_money($system['wallet_max_transfer']|convert_money|number_format)}</span>
               </div>
             {/if}
             <div class="form-group">
               <label class="form-label">{__("Amount")}</label>
-              <div class="input-money {$system['system_currency_dir']}">
-                <span>{$system['system_currency_symbol']}</span>
-                <input class="form-control" type="text" placeholder="0.00" min="1.00" max="1000" name="amount">
+              <div class="input-money {$system['current_currency_dir']}">
+                <span>{$system['current_currency_symbol']}</span>
+                <input class="form-control" type="text" placeholder="{money_placeholder}" min="1.00" max="1000" name="amount">
               </div>
             </div>
             <div class="form-group">
@@ -1476,7 +1477,7 @@
             <div class="form-group">
               <label class="form-label" for="amount">{__("Your Affiliates Credit")}</label>
               <div>
-                <span class="badge badge-lg bg-info">{print_money($user->_data['user_affiliate_balance']|number_format:2)}</span>
+                <span class="badge badge-lg bg-info">{print_money($user->_data['user_affiliate_balance']|convert_money|format_money)}</span>
               </div>
             </div>
             <div class="form-group">
@@ -1510,7 +1511,7 @@
               <label class="form-label" for="amount">{__("Your Points Credit")}</label>
               <div>
                 <span class="badge badge-lg bg-info">
-                  {if $system['points_per_currency'] == 0}0{else}{print_money((((1/$system['points_per_currency'])*$user->_data['user_points'])|number_format:2))}{/if}
+                  {if $system['points_per_currency'] == 0}0{else}{print_money((((1/$system['points_per_currency'])*$user->_data['user_points'])|convert_money|format_money))}{/if}
                 </span>
               </div>
             </div>
@@ -1544,7 +1545,7 @@
             <div class="form-group">
               <label class="form-label" for="amount">{__("Your Funding Credit")}</label>
               <div>
-                <span class="badge badge-lg bg-info">{print_money($user->_data['user_market_balance']|number_format:2)}</span>
+                <span class="badge badge-lg bg-info">{print_money($user->_data['user_market_balance']|convert_money|format_money)}</span>
               </div>
             </div>
             <div class="form-group">
@@ -1577,7 +1578,7 @@
             <div class="form-group">
               <label class="form-label" for="amount">{__("Your Funding Credit")}</label>
               <div>
-                <span class="badge badge-lg bg-info">{print_money($user->_data['user_funding_balance']|number_format:2)}</span>
+                <span class="badge badge-lg bg-info">{print_money($user->_data['user_funding_balance']|convert_money|format_money)}</span>
               </div>
             </div>
             <div class="form-group">
@@ -1610,7 +1611,7 @@
             <div class="form-group">
               <label class="form-label" for="amount">{__("Your Monetization Credit")}</label>
               <div>
-                <span class="badge badge-lg bg-info">{print_money($user->_data['user_monetization_balance']|number_format:2)}</span>
+                <span class="badge badge-lg bg-info">{print_money($user->_data['user_monetization_balance']|convert_money|format_money)}</span>
               </div>
             </div>
             <div class="form-group">

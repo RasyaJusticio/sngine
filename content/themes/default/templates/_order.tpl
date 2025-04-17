@@ -129,7 +129,7 @@
             <span class="text-lg">{if $sales}{__("Subtotal")}{else}{__("Total")}{/if}:</span>
             <span class="float-end">
               <span class="text-lg">
-                {print_money(number_format($order['sub_total'], 2))}
+                {print_money($order['sub_total']|convert_money|format_money)}
               </span>
             </span>
           </div>
@@ -138,7 +138,7 @@
               <span class="text-lg">{__("Commission")}:</span>
               <span class="float-end">
                 <span class="text-lg">
-                  - {print_money(number_format($order['total_commission'], 2))}
+                  - {print_money($order['total_commission']|convert_money|format_money)}
                 </span>
               </span>
             </div>
@@ -148,7 +148,7 @@
               <span class="float-end">
                 <span class="text-lg">
                   <strong>
-                    {print_money(number_format($order['final_price'], 2))}
+                    {print_money($order['final_price']|convert_money|format_money)}
                   </strong>
                 </span>
               </span>
@@ -169,7 +169,7 @@
                 <div class="product-image">
                   <div class="product-price">
                     {if $order_item['post']['product']['price'] > 0}
-                      {print_money($order_item['post']['product']['price'])}
+                      {print_money($order_item['post']['product']['price']|convert_money|format_money)}
                     {else}
                       {__("Free")}
                     {/if}

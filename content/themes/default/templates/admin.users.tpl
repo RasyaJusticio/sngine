@@ -1388,7 +1388,7 @@
                   </label>
                   <div class="col-md-9">
                     <p class="form-control-plaintext">
-                      {$data['name']} ({print_money($data['price'])}
+                      {$data['name']} ({print_money($data['price']|convert_money|format_money)}
                       {if $data['period'] == "life"}{__("Life Time")}{else}{__("per")} {if $data['period_num'] != '1'}{$data['period_num']}{/if} {__($data['period']|ucfirst)}{/if})
                     </p>
                   </div>
@@ -1474,7 +1474,7 @@
                   <select class="form-select" name="package">
                     {foreach $packages as $package}
                       <option value="{$package['package_id']}" {if $data['user_package'] == $package['package_id']}selected{/if}>
-                        {$package['name']} ({print_money($package['price'])}
+                        {$package['name']} ({print_money($package['price']|convert_money|format_money)}
                         {if $package['period'] == "life"}{__("Life Time")}{else}{__("per")} {if $package['period_num'] != '1'}{$package['period_num']}{/if} {__($package['period']|ucfirst)}{/if})
                       </option>
                     {/foreach}
@@ -1565,7 +1565,7 @@
                   <div class="col-md-9">
                     <h6>
                       <span class="badge badge-lg bg-light text-primary">
-                        {print_money($data['user_market_balance']|number_format:2)}
+                        {print_money($data['user_market_balance']|convert_money|format_money)}
                       </span>
                     </h6>
                   </div>
@@ -1589,7 +1589,7 @@
                   <div class="col-md-9">
                     <h6>
                       <span class="badge badge-lg bg-light text-primary">
-                        {print_money($data['user_funding_balance']|number_format:2)}
+                        {print_money($data['user_funding_balance']|convert_money|format_money)}
                       </span>
                     </h6>
                   </div>
@@ -1632,7 +1632,7 @@
                         {foreach $monetization_plans as $plan}
                           <div class="payment-plan">
                             <div class="text-xxlg">{__($plan['title'])}</div>
-                            <div class="text-xlg">{print_money($plan['price'])} / {if $plan['period_num'] != '1'}{$plan['period_num']}{/if} {__($plan['period']|ucfirst)}</div>
+                            <div class="text-xlg">{print_money($plan['price']|convert_money|format_money)} / {if $plan['period_num'] != '1'}{$plan['period_num']}{/if} {__($plan['period']|ucfirst)}</div>
                             {if {$plan['custom_description']}}
                               <div>{$plan['custom_description']}</div>
                             {/if}

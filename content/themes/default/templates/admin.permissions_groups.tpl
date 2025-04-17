@@ -809,12 +809,12 @@
 
           <div class="row form-group">
             <label class="col-md-3 form-label">
-              {__("Points")}/{print_money("1.00")}
+              {__("Points")}/{print_money(1|convert_money|format_money)}
             </label>
             <div class="col-md-9">
               <input type="text" class="form-control" name="points_per_currency" value="{$system['points_per_currency']}">
               <div class="form-text">
-                {__("How much points eqaul to")} {print_money("1")}
+                {__("How much points eqaul to")} {print_money(1|convert_money|format_money)}
               </div>
             </div>
           </div>

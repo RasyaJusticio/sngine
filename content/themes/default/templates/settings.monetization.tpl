@@ -99,7 +99,7 @@
                 {foreach $monetization_plans as $plan}
                   <div class="payment-plan">
                     <div class="text-xxlg">{__($plan['title'])}</div>
-                    <div class="text-xlg">{print_money($plan['price'])} / {if $plan['period_num'] != '1'}{$plan['period_num']}{/if} {__($plan['period']|ucfirst)}</div>
+                    <div class="text-xlg">{print_money($plan['price']|convert_money|format_money)} / {if $plan['period_num'] != '1'}{$plan['period_num']}{/if} {__($plan['period']|ucfirst)}</div>
                     {if {$plan['custom_description']}}
                       <div>{$plan['custom_description']}</div>
                     {/if}
@@ -173,7 +173,7 @@
             <div class="stat-cell">
               <i class="fa fa-donate bg-icon"></i>
               <div class="h3 mtb10">
-                {print_money($user->_data['user_monetization_balance']|number_format:2)}
+                {print_money($user->_data['user_monetization_balance']|convert_money|format_money)}
               </div>
             </div>
           </div>
@@ -194,7 +194,7 @@
           <div class="col-md-9">
             <h6>
               <span class="badge badge-lg bg-info">
-                {print_money($user->_data['user_monetization_balance']|number_format:2)}
+                {print_money($user->_data['user_monetization_balance']|convert_money|format_money)}
               </span>
             </h6>
           </div>
@@ -207,7 +207,7 @@
           <div class="col-md-9">
             <input type="text" class="form-control" name="amount">
             <div class="form-text">
-              {__("The minimum withdrawal request amount is")} {print_money($system['monetization_min_withdrawal'])}
+              {__("The minimum withdrawal request amount is")} {print_money($system['monetization_min_withdrawal']|convert_money|format_money)}
             </div>
           </div>
         </div>
@@ -298,7 +298,7 @@
               {foreach $payments as $payment}
                 <tr>
                   <td>{$payment@iteration}</td>
-                  <td>{print_money($payment['amount']|number_format:2)}</td>
+                  <td>{print_money($payment['amount']|convert_money|format_money)}</td>
                   <td>
                     {if $payment['method'] == "custom"}
                       {$system['monetization_payment_method_custom']}
@@ -334,7 +334,7 @@
         <div class="stat-panel bg-gradient-primary">
           <div class="stat-cell narrow">
             <i class="fa fa-dollar-sign bg-icon"></i>
-            <span class="text-xxlg">{print_money($total_earnings|number_format:2)}</span><br>
+            <span class="text-xxlg">{print_money($total_earnings|convert_money|format_money)}</span><br>
             <span class="text-lg">{__("Total Earnings")}</span><br>
           </div>
         </div>
@@ -343,7 +343,7 @@
         <div class="stat-panel bg-gradient-info">
           <div class="stat-cell narrow">
             <i class="fa fa-dollar-sign bg-icon"></i>
-            <span class="text-xxlg">{print_money($this_month_earnings|number_format:2)}</span><br>
+            <span class="text-xxlg">{print_money($this_month_earnings|convert_money|format_money)}</span><br>
             <span class="text-lg">{__("This Month Earnings")}</span><br>
           </div>
         </div>
@@ -377,9 +377,9 @@
                       {$earning['user_fullname']}
                     </a>
                   </td>
-                  <td>{print_money($earning['price']|number_format:2)}</td>
-                  <td>{print_money($earning['commission']|number_format:2)}</td>
-                  <td>{print_money($earning['earning']|number_format:2)}</td>
+                  <td>{print_money($earning['price']|convert_money|format_money)}</td>
+                  <td>{print_money($earning['commission']|convert_money|format_money)}</td>
+                  <td>{print_money($earning['earning']|convert_money|format_money)}</td>
                   <td>
                     <span class="js_moment" data-time="{$earning['time']}">{$earning['time']}</span>
                   </td>

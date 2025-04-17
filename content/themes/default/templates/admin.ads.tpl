@@ -133,7 +133,7 @@
                         {if $system['show_usernames_enabled']}{$row['user_name']}{else}{$row['user_firstname']} {$row['user_lastname']}{/if}
                       </a>
                     </td>
-                    <td>{print_money($row['campaign_budget']|number_format:2)}</td>
+                    <td>{print_money($row['campaign_budget']|convert_money|format_money)}</td>
                     <td>
                       <span class="badge rounded-pill badge-lg bg-warning">{__("Pending")}</span>
                     </td>
@@ -185,8 +185,8 @@
                         {if $system['show_usernames_enabled']}{$row['user_name']}{else}{$row['user_firstname']} {$row['user_lastname']}{/if}
                       </a>
                     </td>
-                    <td>{print_money($row['campaign_budget']|number_format:2)}</td>
-                    <td>{print_money($row['campaign_spend']|number_format:2)}</td>
+                    <td>{print_money($row['campaign_budget']|convert_money|format_money)}</td>
+                    <td>{print_money($row['campaign_spend']|convert_money|format_money)}</td>
                     <td>
                       {if $row['campaign_bidding'] == "click"}
                         {$row['campaign_clicks']} {__("Clicks")}

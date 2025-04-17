@@ -251,7 +251,7 @@
                         <div class="product-image">
                           <div class="product-price">
                             {if $cart_item['post']['product']['price'] > 0}
-                              {print_money($cart_item['post']['product']['price'])}
+                              {print_money($cart_item['post']['product']['price']|convert_money|format_money)}
                             {else}
                               {__("Free")}
                             {/if}
@@ -335,7 +335,7 @@
               {__("Total Price")}
               <p>
                 <span class="text-xxlg">
-                  {print_money(number_format($cart['total'], 2))}
+                  {pRasyaJusticio/snginerint_money($cart['total']|convert_money|format_money)}
                 </span>
               </p>
             </div>
@@ -404,7 +404,7 @@
         <div class="stat-panel bg-gradient-info">
           <div class="stat-cell narrow">
             <i class="fa fa-dollar-sign bg-icon"></i>
-            <span class="text-xxlg">{print_money($monthly_sales|number_format:2)}</span><br>
+            <span class="text-xxlg">{print_money($monthly_sales|convert_money|format_money)}</span><br>
             <span class="text-lg">{__("This Month Earnings")}</span><br>
           </div>
         </div>
@@ -413,7 +413,7 @@
         <div class="stat-panel bg-gradient-info">
           <div class="stat-cell narrow">
             <i class="fa fa-dollar-sign bg-icon"></i>
-            <span class="text-xxlg">{print_money($user->_data['user_market_balance']|number_format:2)}</span><br>
+            <span class="text-xxlg">{print_money($user->_data['user_market_balance']|convert_money|format_money)}</span><br>
             <span class="text-lg">{__("Total Earnings")}</span><br>
           </div>
         </div>

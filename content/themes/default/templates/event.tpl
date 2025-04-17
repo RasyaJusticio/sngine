@@ -84,7 +84,7 @@
 
         <!-- profile-date -->
         <div class="profle-date-wrapper">
-          {__($event['event_start_date']|date_format:"%b")}<br>{$event['event_start_date']|date_format:"%e"}
+          {__($event['event_start_date']|to_local_timezone|date_format:"%b")}<br>{$event['event_start_date']|to_local_timezone|date_format:"%e"}
         </div>
         <!-- profile-date -->
 
@@ -103,7 +103,7 @@
 
         <!-- profile-meta -->
         <div class="profle-meta-wrapper">
-          <i class="fa fa-clock"></i> {$event['event_start_date']|date_format:"%e"} {__($event['event_start_date']|date_format:"%b")} {$event['event_start_date']|date_format:"%I:%M %p"} {__("to")} {$event['event_end_date']|date_format:"%e"} {__($event['event_end_date']|date_format:"%b")} {$event['event_end_date']|date_format:"%I:%M %p"}
+          <i class="fa fa-clock"></i> {$event['event_start_date']|to_local_timezone|date_format:"%e"} {__($event['event_start_date']|to_local_timezone|date_format:"%b")} {$event['event_start_date']|to_local_timezone|date_format:"%I:%M %p"} {__("to")} {$event['event_end_date']|to_local_timezone|date_format:"%e"} {__($event['event_end_date']|to_local_timezone|date_format:"%b")} {$event['event_end_date']|to_local_timezone|date_format:"%I:%M %p"}
         </div>
         <!-- profile-meta -->
 
@@ -298,9 +298,9 @@
                   <li>
                     <div class="about-list-item">
                       {include file='__svg_icons.tpl' icon="clock" class="main-icon" width="24px" height="24px"}
-                      {$event['event_start_date']|date_format:"%e"} {__($event['event_start_date']|date_format:"%b")} - {$event['event_end_date']|date_format:"%e"} {__($event['event_end_date']|date_format:"%b")}<br>
+                      {$event['event_start_date']|to_local_timezone|date_format:"%e"} {__($event['event_start_date']|to_local_timezone|date_format:"%b")} - {$event['event_end_date']|to_local_timezone|date_format:"%e"} {__($event['event_end_date']|to_local_timezone|date_format:"%b")}<br>
                       <small class="text-muted">
-                        {$event['event_start_date']|date_format:"%e"} {__($event['event_start_date']|date_format:"%b")} {$event['event_start_date']|date_format:"%I:%M %p"} {__("to")} {$event['event_end_date']|date_format:"%e"} {__($event['event_end_date']|date_format:"%b")} {$event['event_end_date']|date_format:"%I:%M %p"}
+                        {$event['event_start_date']|to_local_timezone|date_format:"%e"} {__($event['event_start_date']|to_local_timezone|date_format:"%b")} {$event['event_start_date']|to_local_timezone|date_format:"%I:%M %p"} {__("to")} {$event['event_end_date']|to_local_timezone|date_format:"%e"} {__($event['event_end_date']|to_local_timezone|date_format:"%b")} {$event['event_end_date']|to_local_timezone|date_format:"%I:%M %p"}
                       </small>
                     </div>
                   </li>
@@ -1080,11 +1080,11 @@
                     </div>
                     <div class="form-group">
                       <label class="form-label">{__("Start Date")}</label>
-                      <input type="datetime-local" class="form-control" name="start_date" value="{$event['event_start_date']}">
+                      <input type="datetime-local" class="form-control" name="start_date" value="{$event['event_start_date']|to_local_timezone}">
                     </div>
                     <div class="form-group">
                       <label class="form-label">{__("End Date")}</label>
-                      <input type="datetime-local" class="form-control" name="end_date" value="{$event['event_end_date']}">
+                      <input type="datetime-local" class="form-control" name="end_date" value="{$event['event_end_date']|to_local_timezone}">
                     </div>
                     {if !$event['event_page']}
                       <div class="form-group">

@@ -21,7 +21,7 @@
         </label>
         <div class="col-md-9">
           <p class="form-control-plaintext">
-            {__($user->_data['package_name'])} ({print_money($user->_data['price'])}
+            {__($user->_data['package_name'])} ({print_money($user->_data['price']|convert_money|format_money)}
             {if $user->_data['period'] == "life"}{__("Life Time")}{else}{__("per")} {if $user->_data['period_num'] != '1'}{$user->_data['period_num']}{/if} {__($user->_data['period']|ucfirst)}{/if})
           </p>
         </div>

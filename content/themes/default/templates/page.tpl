@@ -325,7 +325,7 @@
             {if $user->_logged_in && !$spage['i_admin'] && $spage['has_subscriptions_plans']}
               <div class="d-grid">
                 <button class="btn btn-primary rounded rounded-pill mb20" data-toggle="modal" data-url="monetization/controller.php?do=get_plans&node_id={$spage['page_id']}&node_type=page" data-size="large">
-                  <i class="fa fa-money-check-alt mr5"></i>{__("SUBSCRIBE")} {__("STARTING FROM")} ({print_money($spage['page_monetization_min_price']|number_format:2)})
+                  <i class="fa fa-money-check-alt mr5"></i>{__("SUBSCRIBE")} {__("STARTING FROM")} ({print_money($spage['page_monetization_min_price']|convert_money|format_money)})
                 </button>
               </div>
             {/if}
@@ -1823,7 +1823,7 @@
                             {foreach $monetization_plans as $plan}
                               <div class="payment-plan">
                                 <div class="text-xxlg">{__($plan['title'])}</div>
-                                <div class="text-xlg">{print_money($plan['price'])} / {if $plan['period_num'] != '1'}{$plan['period_num']}{/if} {__($plan['period']|ucfirst)}</div>
+                                <div class="text-xlg">{print_money(convert_money($plan['price'])} / {if $plan['period_num'] != '1'}{$plan['period_num']}{/if} {__($plan['period']|ucfirst)|format_money)}</div>
                                 {if {$plan['custom_description']}}
                                   <div>{$plan['custom_description']}</div>
                                 {/if}
@@ -1891,7 +1891,7 @@
                           <div class="stat-cell">
                             <i class="fa fa-donate bg-icon"></i>
                             <div class="h3 mtb10">
-                              {print_money($user->_data['user_monetization_balance']|number_format:2)}
+                              {print_money($user->_data['user_monetization_balance']|convert_money|format_money)}
                             </div>
                           </div>
                         </div>

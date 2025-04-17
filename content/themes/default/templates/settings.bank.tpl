@@ -24,17 +24,17 @@
                 <td>{$transfer@iteration}</td>
                 <td>
                   {if $transfer['handle'] == "packages"}
-                    {__($transfer['package_name'])} {__("Package")} = <strong>{print_money($transfer['package_price'])}</strong>
+                    {__($transfer['package_name'])} {__("Package")} = <strong>{print_money($transfer['package_price']|convert_money|format_money)}</strong>
                   {elseif $transfer['handle'] == "wallet"}
-                    {__("Add Wallet Balance")} = <strong>{print_money($transfer['price'])}</strong>
+                    {__("Add Wallet Balance")} = <strong>{print_money($transfer['price']|convert_money|format_money)}</strong>
                   {elseif $transfer['handle'] == "donate"}
-                    {__("Funding Donation")} = <strong>{print_money($transfer['price'])}</strong>
+                    {__("Funding Donation")} = <strong>{print_money($transfer['price']|convert_money|format_money)}</strong>
                   {elseif $transfer['handle'] == "subscribe"}
-                    {__("Subscribe")} = <strong>{print_money($transfer['price'])}</strong>
+                    {__("Subscribe")} = <strong>{print_money($transfer['price']|convert_money|format_money)}</strong>
                   {elseif $transfer['handle'] == "paid_post"}
-                    {__("Paid Post")} = <strong>{print_money($transfer['price'])}</strong>
+                    {__("Paid Post")} = <strong>{print_money($transfer['price']|convert_money|format_money)}</strong>
                   {elseif $transfer['handle'] == "movies"}
-                    {__("Movies")} = <strong>{print_money($transfer['price'])}</strong>
+                    {__("Movies")} = <strong>{print_money($transfer['price']|convert_money|format_money)}</strong>
                   {/if}
                 </td>
                 <td>

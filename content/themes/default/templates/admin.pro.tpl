@@ -136,7 +136,7 @@
                     </a>
                   {/if}
                 </td>
-                <td>{print_money($row['price'])}</td>
+                <td>{print_money($row['price']|convert_money|format_money)}</td>
                 <td>
                   {if $row['period'] == 'life'}
                     {__("Life Time")}
