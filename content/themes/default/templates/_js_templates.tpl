@@ -1916,6 +1916,15 @@ Rp 1.69
                 </div>
               </div>
             {/if}
+            {if $system['midtrans_enabled']}
+              <div class="col-12 col-sm-6 mb10">
+                <div class="d-grid">
+                  <button class="js_payment-midtrans btn btn-md btn-payment" data-handle="{literal}{{handle}}{/literal}" {literal}{{#id}}{/literal} data-id="{literal}{{id}}{/literal}" {literal}{{/id}}{/literal} {literal}{{#price}}{/literal} data-price="{literal}{{price}}{/literal}" {literal}{{/price}}{/literal}>
+                    <i class="fab fa-midtrans fa-lg fa-fw mr5" style="color: #00186A;"></i>{__("Midtrans")}
+                  </button>
+                </div>
+              </div>
+            {/if}
             {if $system['creditcard_enabled']}
               <div class="col-12 col-sm-6 mb10">
                 <div class="d-grid">

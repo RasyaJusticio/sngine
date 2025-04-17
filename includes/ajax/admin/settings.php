@@ -811,6 +811,7 @@ try {
 
     case 'payments_methods':
       /* prepare */
+      $_POST['midtrans_enabled'] = (isset($_POST['midtrans_enabled'])) ? '1' : '0';
       $_POST['paypal_enabled'] = (isset($_POST['paypal_enabled'])) ? '1' : '0';
       $_POST['paypal_payouts_enabled'] = (isset($_POST['paypal_payouts_enabled'])) ? '1' : '0';
       $_POST['creditcard_enabled'] = (isset($_POST['creditcard_enabled'])) ? '1' : '0';
@@ -832,6 +833,12 @@ try {
       $_POST['verotel_enabled'] = (isset($_POST['verotel_enabled'])) ? '1' : '0';
       /* update */
       update_system_options([
+        'midtrans_enabled' => secure($_POST['midtrans_enabled']),
+        'midtrans_mode' => secure($_POST['midtrans_mode']),
+        'midtrans_sandbox_client' => secure($_POST['midtrans_sandbox_client']),
+        'midtrans_sandbox_server' => secure($_POST['midtrans_sandbox_server']),
+        'midtrans_live_client' => secure($_POST['midtrans_live_client']),
+        'midtrans_live_server' => secure($_POST['midtrans_live_server']),
         'paypal_enabled' => secure($_POST['paypal_enabled']),
         'paypal_payouts_enabled' => secure($_POST['paypal_payouts_enabled']),
         'paypal_mode' => secure($_POST['paypal_mode']),
