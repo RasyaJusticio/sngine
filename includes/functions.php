@@ -463,6 +463,8 @@ function init_smarty()
   $smarty->registerPlugin('modifier', '__', '__');
   $smarty->registerPlugin('modifier', 'print_money', 'print_money');
   $smarty->registerPlugin('modifier', 'convert_money', 'convert_money');
+  $smarty->registerPlugin('modifier', 'format_money', 'format_money');
+  $smarty->registerPlugin('function', 'money_placeholder', 'money_placeholder');
   $smarty->registerPlugin('modifier', 'is_empty', 'is_empty');
   $smarty->registerPlugin('modifier', 'array_reverse', 'array_reverse');
   $smarty->registerPlugin('modifier', 'htmlentities', 'htmlentities');
@@ -483,7 +485,6 @@ function init_smarty()
   $smarty->registerPlugin('modifier', 'get_payment_fees_value', 'get_payment_fees_value');
   $smarty->registerPlugin('modifier', 'get_payment_vat_percentage', 'get_payment_vat_percentage');
   $smarty->registerPlugin('modifier', 'implode', 'implode');
-  $smarty->registerPlugin('function', 'money_placeholder', 'money_placeholder');
   return $smarty;
 }
 
@@ -4003,7 +4004,7 @@ function get_payment_total_value($amount, $printed = false)
 {
   $total = $amount + get_payment_vat_value($amount) + get_payment_fees_value($amount);
   $total = "" . round($total, 2);
-  return ($printed) ? html_entity_decode(print_money($total), ENT_QUOTES) : $total;
+  return ($printed) ? html_entity_decode(print_money(format_money(convert_money($total))), ENT_QUOTES) : $total;
 }
 
 
@@ -7478,7 +7479,7 @@ function convert_money($value, $exchange_rate = null) {
     return $value * $rate; 
 }
 
-function format_money($value, $fraction_digits = null, $decimal_separator = ".", $thousands_separator = ",") {
+function format_money($value, $fraction_digits = null, $decimal_separator = ",", $thousands_separator = ".") {
     global $system;
 
     $decimals = isset($fraction_digits) ? $fraction_digits : $system['current_currency_fraction_digits'];
