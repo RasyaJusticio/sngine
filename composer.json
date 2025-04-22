@@ -23,7 +23,8 @@
   "authorizenet/authorizenet": "^2.0",
   "cashfree/cashfree-pg": "^4.2",
   "verotel/flexpay-php-client": "^5.1",
-  "symfony/yaml": "^5.4"
+  "symfony/yaml": "^5.4",
+  "midtrans/midtrans-php": "^2.6"
  },
  "config": {
   "allow-plugins": {

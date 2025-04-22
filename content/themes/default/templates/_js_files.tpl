@@ -401,8 +401,15 @@
     {/if}
     <!-- TinyMCE -->
 
-    <!-- Stripe & 2Checkout & Razorpay & SecurionPay & Cashfree & Epayco -->
+    <!-- Midtrans & Stripe & 2Checkout & Razorpay & SecurionPay & Cashfree & Epayco -->
     {if in_array($page, ["index", "packages", "ads", "wallet", "market", "profile", "page", "group", "post", "directory", "search", "movies"])}
+      {if $system['midtrans_enabled']}
+        {if $system['midtrans_mode'] == 'live'}
+          <script src="https://app.midtrans.com/snap/snap.js" data-client-key="{$system['midtrans_live_client']}" defer></script>
+        {else}
+          <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{$system['midtrans_sandbox_client']}" defer></script>
+        {/if}
+      {/if}
       {if $system['creditcard_enabled'] || $system['alipay_enabled']}
         <script src="https://js.stripe.com/v3" defer></script>
       {/if}
@@ -422,7 +429,7 @@
         <script src="https://checkout.epayco.co/checkout.js" defer></script>
       {/if}
     {/if}
-    <!-- Stripe & 2Checkout & Razorpay & SecurionPay & Cashfree & Epayco -->
+    <!-- Midtrans & Stripe & 2Checkout & Razorpay & SecurionPay & Cashfree & Epayco -->
 
     <!-- Twilio -->
     {if $system['audio_call_enabled'] || $system['video_call_enabled']}

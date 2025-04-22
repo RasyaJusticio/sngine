@@ -1407,9 +1407,9 @@
           <div class="modal-body">
             <div class="form-group">
             <label class="form-label" for="amount">{__("Amount")}</label>
-              <div class="input-money {$system['system_currency_dir']}">
-                <span>{$system['system_currency_symbol']}</span>
-                <input class="form-control" type="text" placeholder="0.00" min="1.00" max="1000" name="amount">
+              <div class="input-money {$system['current_currency_dir']}">
+                <span>{$system['current_currency_symbol']}</span>
+                <input class="form-control" type="text" placeholder="{money_placeholder}" min="1.00" max="1000" name="amount">
               </div>
             </div>
             <!-- error -->
@@ -1419,7 +1419,6 @@
           <div class="modal-footer">
           <button type="submit" class="btn btn-primary">{__("Continue")}</button>
           </div>
-Rp 1.69
         </form>
       </script>
     
@@ -1920,7 +1919,7 @@ Rp 1.69
               <div class="col-12 col-sm-6 mb10">
                 <div class="d-grid">
                   <button class="js_payment-midtrans btn btn-md btn-payment" data-handle="{literal}{{handle}}{/literal}" {literal}{{#id}}{/literal} data-id="{literal}{{id}}{/literal}" {literal}{{/id}}{/literal} {literal}{{#price}}{/literal} data-price="{literal}{{price}}{/literal}" {literal}{{/price}}{/literal}>
-                    <i class="fab fa-midtrans fa-lg fa-fw mr5" style="color: #00186A;"></i>{__("Midtrans")}
+                    {include file='__svg_icons.tpl' icon="midtrans" class="main-icon" width="100px" height="20px"}
                   </button>
                 </div>
               </div>
@@ -2118,6 +2117,14 @@ Rp 1.69
       </div>
     </script>
     <!-- Payment -->
+
+    <!-- Midtrans Snap Embed -->
+    {if $system['midtrans_enabled']}
+      <script id="midtrans" type="text/template">
+        <div id="midtrans-snap-embed"></div>
+      </script>
+    {/if}
+    <!-- Midtrans Snap Embed -->
 
     <!-- Stripe Payment Element -->
     {if $system['stripe_payment_element_enabled']}

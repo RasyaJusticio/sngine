@@ -464,7 +464,7 @@ function init_smarty()
   $smarty->registerPlugin('modifier', 'print_money', 'print_money');
   $smarty->registerPlugin('modifier', 'convert_money', 'convert_money');
   $smarty->registerPlugin('modifier', 'format_money', 'format_money');
-  $smarty->registerPlugin('function', 'money_placeholder', 'money_placeholder');
+  $smarty->registerplugin('function', 'money_placeholder', 'money_placeholder');
   $smarty->registerPlugin('modifier', 'is_empty', 'is_empty');
   $smarty->registerPlugin('modifier', 'array_reverse', 'array_reverse');
   $smarty->registerPlugin('modifier', 'htmlentities', 'htmlentities');
@@ -4038,7 +4038,79 @@ function process_automatic_withdrawal($method, $amount, $email)
   }
 }
 
+/* ------------------------------- */
+/* Midtrans */
+/* ------------------------------- */
+function midtrans_setup_keys()
+{
+    global $system;
 
+    if ($system['midtrans_mode'] == 'live') {
+        \Midtrans\Config::$serverKey = $system["midtrans_live_server"];
+        \Midtrans\Config::$isProduction = true;
+    } else {
+        \Midtrans\Config::$serverKey = $system["midtrans_sandbox_server"];
+        \Midtrans\Config::$isProduction = false;
+    }
+}
+
+function midtrans_payment_token($handle, $price)
+{
+    global $system, $user;
+
+    midtrans_setup_keys();
+
+    /* prepare */
+    $order_id = uniqid($handle . '-');
+    $total = get_payment_total_value($price);
+
+    switch ($handle) {
+        case 'wallet':
+            $_SESSION['wallet_replenish_amount'] = $price;
+            $redirects['success'] = $system['system_url'] . "/webhooks/midtrans.php?status=success&handle=wallet&order_id=$order_id";
+            $redirects['cancel'] = $system['system_url'] . "/webhooks/midtrans.php?status=cancel";
+            break;
+    }
+
+    $params = [
+        'transaction_details' => [
+            'order_id' => $order_id,
+            'gross_amount' => (int) $total,
+        ],
+        'customer_details' => [
+            'first_name' => $user->_data['user_name'],
+            'email' => $user->_data['user_email'],
+        ],
+        'item_details' => [[
+            'id' => $handle,
+            'price' => (int) $total,
+            'quantity' => 1,
+            'name' => "Payment for $handle",
+        ]],
+    ];
+
+    $snap_token = \Midtrans\Snap::getSnapToken($params);
+
+    return [
+        'snap_token' => $snap_token,
+        'redirects' => $redirects,
+    ];
+}
+
+/**
+ * midtrans_payment_check
+ *
+ * @param string $order_id
+ * @return string
+ */
+function midtrans_payment_check($order_id)
+{
+    midtrans_setup_keys();
+
+    $status = \Midtrans\Transaction::status($order_id);
+    
+    return $status;
+}
 
 /* ------------------------------- */
 /* PayPal */
@@ -7475,6 +7547,10 @@ function convert_money($value, $exchange_rate = null) {
     global $system;
     
     $rate = isset($exchange_rate) ? $exchange_rate : $system['current_currency_rate'];
+
+    if ($system['system_currency_id'] == $system['current_currency_id']) {
+        return $value; 
+    }
 
     return $value * $rate; 
 }
