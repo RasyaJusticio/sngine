@@ -335,7 +335,7 @@
               {__("Total Price")}
               <p>
                 <span class="text-xxlg">
-                  {pRasyaJusticio/snginerint_money($cart['total']|convert_money|format_money)}
+                  {print_money($cart['total']|convert_money|format_money)}
                 </span>
               </p>
             </div>

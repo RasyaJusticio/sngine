@@ -743,7 +743,7 @@
         <div class="mb20 text-lg text-success">
           <strong>
             {if $_post['product']['price'] > 0}
-              {print_money($_post['product']['price'])}
+              {print_money($_post['product']['price']|convert_money|format_money)}
             {else}
               {__("Free")}
             {/if}

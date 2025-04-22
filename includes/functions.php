@@ -4054,7 +4054,7 @@ function midtrans_setup_keys()
     }
 }
 
-function midtrans_payment_token($handle, $price)
+function midtrans_payment_token($handle, $price, $id = null)
 {
     global $system, $user;
 
@@ -4068,6 +4068,11 @@ function midtrans_payment_token($handle, $price)
         case 'wallet':
             $_SESSION['wallet_replenish_amount'] = $price;
             $redirects['success'] = $system['system_url'] . "/webhooks/midtrans.php?status=success&handle=wallet&order_id=$order_id";
+            $redirects['cancel'] = $system['system_url'] . "/webhooks/midtrans.php?status=cancel";
+            break;
+
+        case 'marketplace':
+            $redirects['success'] = $system['system_url'] . "/webhooks/midtrans.php?status=success&handle=marketplace&orders_collection_id=$id&order_id=$order_id";
             $redirects['cancel'] = $system['system_url'] . "/webhooks/midtrans.php?status=cancel";
             break;
     }

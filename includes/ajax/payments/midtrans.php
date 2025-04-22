@@ -1,7 +1,7 @@
 <?php
 
 // fetch bootstrap
-require('../../../bootstrap.php');
+require '../../../bootstrap.php';
 
 // check AJAX Request
 is_ajax();
@@ -16,19 +16,40 @@ if (!$system['midtrans_enabled']) {
 
 try {
     switch ($_POST['handle']) {
-        case 'wallet':
-            // valid inputs
-            if (!isset($_POST['price']) || !is_numeric($_POST['price'])) {
-                _error(400);
-            }
-
-            // get midtrans snap token
-            $payment_info = midtrans_payment_token("wallet", $_POST['price']);
-            break;
-
-        default:
+    case 'wallet':
+        // valid inputs
+        if (!isset($_POST['price']) || !is_numeric($_POST['price'])) {
             _error(400);
-            break;
+        }
+
+        // get midtrans snap token
+        $payment_info = midtrans_payment_token("wallet", $_POST['price']);
+        break;
+
+    case 'marketplace':
+        // valid inputs
+        if (!isset($_POST['orders_collection_id'])) {
+            _error(400);
+        }
+
+        // get orders collection
+        $orders_collection = $user->get_orders_collection($_POST['orders_collection_id']);
+        /* check if order collection exists */
+        if (!$orders_collection) {
+            _error(400);
+        }
+        /* check if user already paid to this order collection */
+        if ($orders_collection['paid']) {
+            modal("SUCCESS", __("Paid"), __("You already paid to this order"));
+        }
+
+        // get midtrans snap token
+        $payment_info = midtrans_payment_token("marketplace", $orders_collection['total'], $_POST['orders_collection_id']);
+        break;
+
+    default:
+        _error(400);
+        break;
     }
 
     // return & exit
