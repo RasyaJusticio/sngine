@@ -871,7 +871,7 @@
           </div>
           <div class="funding-completion mb10 mt20">
             <span class="float-end">{$_post['funding']['funding_completion']}%</span>
-            <strong>{print_money($_post['funding']['raised_amount'])} {__("Raised of")} {print_money($_post['funding']['amount'])}</strong>
+            <strong>{print_money($_post['funding']['raised_amount']|convert_money|format_money)} {__("Raised of")} {print_money($_post['funding']['amount']|convert_money|format_money)}</strong>
             <div class="progress mt5">
               <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="{$_post['funding']['funding_completion']}" aria-valuemin="0" aria-valuemax="100" style="width: {$_post['funding']['funding_completion']}%"></div>
             </div>

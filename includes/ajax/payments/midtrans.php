@@ -26,6 +26,22 @@ try {
         $payment_info = midtrans_payment_token("wallet", $_POST['price']);
         break;
 
+    case 'donate':
+        // valid inputs
+        if (!isset($_POST['post_id']) || !is_numeric($_POST['post_id'])) {
+            _error(400);
+        }
+
+        // get post
+        $post = $user->get_post($_POST['post_id']);
+        if (!$post) {
+            _error(400);
+        }
+
+        // get midtrans snap token
+        $payment_info = midtrans_payment_token("donate", $_POST['price'], $_POST['post_id']);
+        break;
+
     case 'movies':
         // valid inputs
         if (!isset($_POST['movie_id']) || !is_numeric($_POST['movie_id'])) {

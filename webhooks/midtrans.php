@@ -36,6 +36,26 @@ try {
             }
             break;
 
+        case 'donate':
+            // valid inputs
+            if (!isset($_GET['order_id'])) {
+                _error(404);
+            }
+            if (!isset($_GET['post_id']) || !is_numeric($_GET['post_id'])) {
+                _error(404);
+            }
+
+            $payment_status = midtrans_payment_check($_GET['order_id']);
+            if ($payment_status->transaction_status == 'settlement') {
+                /* funding donation */
+                $user->funding_donation($_GET['post_id'], $_SESSION['donation_amount']);
+                /* log payment */
+                $user->log_payment($user->_data['user_id'], $_SESSION['donation_amount'], 'midtrans', 'donate');
+                /* redirect */
+                redirect("/posts/" . $_GET['post_id']);
+            }
+            break;
+
         case 'movies':
             // valid inputs
             if (!isset($_GET['order_id'])) {
