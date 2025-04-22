@@ -4071,6 +4071,11 @@ function midtrans_payment_token($handle, $price, $id = null)
             $redirects['cancel'] = $system['system_url'] . "/webhooks/midtrans.php?status=cancel";
             break;
 
+        case 'movies':
+            $redirects['success'] = $system['system_url'] . "/webhooks/midtrans.php?status=success&handle=movies&movie_id=$id&order_id=$order_id";
+            $redirects['cancel'] = $system['system_url'] . "/webhooks/midtrans.php?status=cancel";
+            break;
+
         case 'marketplace':
             $redirects['success'] = $system['system_url'] . "/webhooks/midtrans.php?status=success&handle=marketplace&orders_collection_id=$id&order_id=$order_id";
             $redirects['cancel'] = $system['system_url'] . "/webhooks/midtrans.php?status=cancel";

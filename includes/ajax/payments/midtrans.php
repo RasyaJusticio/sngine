@@ -26,6 +26,23 @@ try {
         $payment_info = midtrans_payment_token("wallet", $_POST['price']);
         break;
 
+    case 'movies':
+        // valid inputs
+        if (!isset($_POST['movie_id']) || !is_numeric($_POST['movie_id'])) {
+            _error(400);
+        }
+
+        // get movie
+        $movie = $user->get_movie($_POST['movie_id']);
+        /* check if user already paid to this movie */
+        if ($movie['can_watch']) {
+            modal("SUCCESS", __("Paid"), __("You already paid to this movie"));
+        }
+
+        // get midtrans snap token
+        $payment_info = midtrans_payment_token("movies", $movie['price'], $_POST['movie_id']);
+        break;
+
     case 'marketplace':
         // valid inputs
         if (!isset($_POST['orders_collection_id'])) {
