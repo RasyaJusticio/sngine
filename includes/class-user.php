@@ -16292,7 +16292,20 @@ class User
         if ($this->_data['user_group'] < 3) {
           $movie['can_watch'] = true;
         } else {
-          $get_payment = $db->query(sprintf('SELECT COUNT(*) AS count FROM movies_payments WHERE movie_id = %s AND user_id = %s AND DATE_ADD(payment_time, INTERVAL %s DAY) > NOW()', secure($movie_id, 'int'), secure($this->_data['user_id'], 'int'), secure($movie['available_for'], 'int')));
+          $get_payment = $db->query(sprintf(
+            'SELECT COUNT(*) AS count 
+            FROM movies_payments 
+            WHERE movie_id = %s 
+            AND user_id = %s 
+            AND (
+            %s = 0 OR DATE_ADD(payment_time, INTERVAL %s DAY) > NOW()
+            )',
+              secure($movie_id, 'int'),
+              secure($this->_data['user_id'], 'int'),
+              secure($movie['available_for'], 'int'),
+              secure($movie['available_for'], 'int')
+          ));
+
           if ($get_payment->fetch_assoc()['count'] > 0) {
             $movie['can_watch'] = true;
           }
