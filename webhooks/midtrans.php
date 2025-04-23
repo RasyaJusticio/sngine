@@ -56,6 +56,57 @@ try {
             }
             break;
 
+        case 'subscribe':
+            // valid inputs
+            if (!isset($_GET['order_id'])) {
+                _error(404);
+            }
+            if (!isset($_GET['plan_id']) || !is_numeric($_GET['plan_id'])) {
+                _error(404);
+            }
+
+            // get monetization plan
+            $monetization_plan = $user->get_monetization_plan($_GET['plan_id'], true);
+            if (!$monetization_plan) {
+                _error(404);
+            }
+
+            $payment_status = midtrans_payment_check($_GET['order_id']);
+            if ($payment_status->transaction_status == 'settlement') {
+                /* subscribe to node */
+                $node_link = $user->subscribe($_GET['plan_id']);
+                /* log payment */
+                $user->log_payment($user->_data['user_id'], $monetization_plan['price'], 'midtrans', 'subscribe');
+                /* redirect */
+                redirect($node_link);
+            }
+        
+        case 'paid_post':
+            // valid inputs
+            if (!isset($_GET['order_id'])) {
+                _error(404);
+            }
+            if (!isset($_GET['post_id']) || !is_numeric($_GET['post_id'])) {
+                _error(404);
+            }
+
+            // get post
+            $post = $user->get_post($_GET['post_id'], false, false, true);
+            if (!$post) {
+                _error(404);
+            }
+
+            $payment_status = midtrans_payment_check($_GET['order_id']);
+            if ($payment_status->transaction_status == 'settlement') {
+                /* unlock paid post */
+                $post_link = $user->unlock_paid_post($_GET['post_id']);
+                /* log payment */
+                $user->log_payment($user->_data['user_id'], $post['post_price'], 'midtrans', 'paid_post');
+                /* redirect */
+                redirect($post_link);
+            }
+            break;
+
         case 'movies':
             // valid inputs
             if (!isset($_GET['order_id'])) {

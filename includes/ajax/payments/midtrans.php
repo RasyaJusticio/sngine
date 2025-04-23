@@ -42,6 +42,45 @@ try {
         $payment_info = midtrans_payment_token("donate", $_POST['price'], $_POST['post_id']);
         break;
 
+    case 'subscribe':
+        // valid inputs
+        if (!isset($_POST['plan_id']) || !is_numeric($_POST['plan_id'])) {
+            _error(400);
+        }
+
+        // get plan
+        $monetization_plan = $user->get_monetization_plan($_POST['plan_id'], true);
+        if (!$monetization_plan) {
+            _error(400);
+        }
+        /* check if user already subscribed to this node */
+        if ($user->is_subscribed($monetization_plan['node_id'], $monetization_plan['node_type'])) {
+            modal("SUCCESS", __("Subscribed"), __("You already subscribed to this") . " " . __($monetization_plan['node_type']));
+        }
+            
+        // get midtrans snap token
+        $payment_info = midtrans_payment_token("subscribe", $monetization_plan['price'], $_POST['plan_id']);
+        break;
+
+    case 'paid_post':
+        // valid inputs
+        if (!isset($_POST['post_id']) || !is_numeric($_POST['post_id'])) {
+            _error(400);
+        }
+
+        // get post
+        $post = $user->get_post($_POST['post_id'], false, false, true);
+        if (!$post) {
+            throw new Exception(__("This post is not available"));
+        }
+        if (!$post['needs_payment']) {
+            throw new Exception(__("This post doesn't need payment"));
+        }
+
+        // get midtrans snap token
+        $payment_info = midtrans_payment_token("paid_post", $post['post_price'], $_POST['post_id']);
+        break;
+
     case 'movies':
         // valid inputs
         if (!isset($_POST['movie_id']) || !is_numeric($_POST['movie_id'])) {

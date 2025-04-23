@@ -4077,6 +4077,16 @@ function midtrans_payment_token($handle, $price, $id = null)
             $_SESSION['donation_amount'] = $price;
             break;
 
+        case 'subscribe':
+            $redirects['success'] = $system['system_url'] . "/webhooks/midtrans.php?status=success&handle=subscribe&plan_id=$id&order_id=$order_id";
+            $redirects['cancel'] = $system['system_url'] . "/webhooks/midtrans.php?status=cancel";
+            break;
+
+        case 'paid_post':
+            $redirects['success'] = $system['system_url'] . "/webhooks/midtrans.php?status=success&handle=paid_post&post_id=$id&order_id=$order_id";
+            $redirects['cancel'] = $system['system_url'] . "/webhooks/midtrans.php?status=cancel";
+            break;
+
         case 'movies':
             $redirects['success'] = $system['system_url'] . "/webhooks/midtrans.php?status=success&handle=movies&movie_id=$id&order_id=$order_id";
             $redirects['cancel'] = $system['system_url'] . "/webhooks/midtrans.php?status=cancel";

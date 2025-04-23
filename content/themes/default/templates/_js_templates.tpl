@@ -1818,9 +1818,9 @@
           <div class="modal-body">
             <div class="form-group">
               <label class="form-label" for="amount">{__("Amount")}</label>
-              <div class="input-money {$system['system_currency_dir']}">
-                <span>{$system['system_currency_symbol']}</span>
-                <input class="form-control" type="text" placeholder="0.00" min="1.00" max="1000" name="amount" />
+              <div class="input-money {$system['current_currency_dir']}">
+                <span>{$system['current_currency_symbol']}</span>
+                <input class="form-control" type="text" placeholder="{money_placeholder}" min="1.00" max="1000" name="amount" />
               </div>
             </div>
             <!-- error -->
