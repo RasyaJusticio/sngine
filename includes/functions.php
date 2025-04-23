@@ -4065,6 +4065,11 @@ function midtrans_payment_token($handle, $price, $id = null)
     $total = get_payment_total_value($price);
 
     switch ($handle) {
+        case 'packages':
+            $redirects['success'] = $system['system_url'] . "/webhooks/midtrans.php?status=success&handle=packages&package_id=$id&order_id=$order_id";
+            $redirects['cancel'] = $system['system_url'] . "/webhooks/midtrans.php?status=cancel";
+            break;
+
         case 'wallet':
             $_SESSION['wallet_replenish_amount'] = $price;
             $redirects['success'] = $system['system_url'] . "/webhooks/midtrans.php?status=success&handle=wallet&order_id=$order_id";

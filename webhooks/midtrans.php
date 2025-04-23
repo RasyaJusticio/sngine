@@ -17,6 +17,32 @@ if (!$user->_logged_in) {
 try {
     if ($_GET['status'] == 'success') {
         switch ($_GET['handle']) {
+        case 'packages':
+            // valid inputs
+            if (!isset($_GET['order_id'])) {
+                _error(404);
+            }
+            if (!isset($_GET['package_id']) || !is_numeric($_GET['package_id'])) {
+                _error(404);
+            }
+
+            // get package
+            $package = $user->get_package($_GET['package_id']);
+            if (!$package) {
+                _error(404);
+            }
+
+            $payment_status = midtrans_payment_check($_GET['order_id']);
+            if ($payment_status->transaction_status == 'settlement') {
+                /* update user package */
+                $user->update_user_package($package['package_id'], $package['name'], $package['price'], $package['verification_badge_enabled']);
+                /* log payment */
+                $user->log_payment($user->_data['user_id'], $package['price'], 'midtrans', 'packages');
+                /* redirect */
+                redirect("/upgraded");
+            }
+            break;
+
         case 'wallet':
             // valid inputs
             if (!isset($_GET['order_id'])) {

@@ -16,6 +16,26 @@ if (!$system['midtrans_enabled']) {
 
 try {
     switch ($_POST['handle']) {
+    case 'packages':
+        // valid inputs
+        if (!isset($_POST['package_id']) || !is_numeric($_POST['package_id'])) {
+            _error(400);
+        }
+
+        // get package
+        $package = $user->get_package($_POST['package_id']);
+        if (!$package) {
+            _error(400);
+        }
+        /* check if user already subscribed to this package */
+        if ($user->_data['user_subscribed'] && $user->_data['user_package'] == $package['package_id']) {
+            modal("SUCCESS", __("Subscribed"), __("You already subscribed to this package, Please select different package"));
+        }
+
+        // get midtrans snap token
+        $payment_info = midtrans_payment_token("packages", $package['price'], $package['package_id']);
+        break;
+
     case 'wallet':
         // valid inputs
         if (!isset($_POST['price']) || !is_numeric($_POST['price'])) {
