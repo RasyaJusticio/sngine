@@ -812,6 +812,7 @@ try {
     case 'payments_methods':
       /* prepare */
       $_POST['midtrans_enabled'] = (isset($_POST['midtrans_enabled'])) ? '1' : '0';
+      $_POST['xendit_enabled'] = (isset($_POST['xendit_enabled'])) ? '1' : '0';
       $_POST['paypal_enabled'] = (isset($_POST['paypal_enabled'])) ? '1' : '0';
       $_POST['paypal_payouts_enabled'] = (isset($_POST['paypal_payouts_enabled'])) ? '1' : '0';
       $_POST['creditcard_enabled'] = (isset($_POST['creditcard_enabled'])) ? '1' : '0';
@@ -839,6 +840,10 @@ try {
         'midtrans_sandbox_server' => secure($_POST['midtrans_sandbox_server']),
         'midtrans_live_client' => secure($_POST['midtrans_live_client']),
         'midtrans_live_server' => secure($_POST['midtrans_live_server']),
+        'xendit_enabled' => secure($_POST['xendit_enabled']),
+        'xendit_mode' => secure($_POST['xendit_mode']),
+        'xendit_live_key' => secure($_POST['xendit_live_key']),
+        'xendit_sandbox_key' => secure($_POST['xendit_sandbox_key']),
         'paypal_enabled' => secure($_POST['paypal_enabled']),
         'paypal_payouts_enabled' => secure($_POST['paypal_payouts_enabled']),
         'paypal_mode' => secure($_POST['paypal_mode']),

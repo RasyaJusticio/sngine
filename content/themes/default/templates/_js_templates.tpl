@@ -1924,6 +1924,15 @@
                 </div>
               </div>
             {/if}
+            {if $system['xendit_enabled']}
+              <div class="col-12 col-sm-6 mb10">
+                <div class="d-grid">
+                  <button class="js_payment-xendit btn btn-md btn-payment" data-handle="{literal}{{handle}}{/literal}" {literal}{{#id}}{/literal} data-id="{literal}{{id}}{/literal}" {literal}{{/id}}{/literal} {literal}{{#price}}{/literal} data-price="{literal}{{price}}{/literal}" {literal}{{/price}}{/literal}>
+                    {include file='__svg_icons.tpl' icon="xendit-mono" class="main-icon" width="40px" height="40px"}
+                  </button>
+                </div>
+              </div>
+            {/if}
             {if $system['creditcard_enabled']}
               <div class="col-12 col-sm-6 mb10">
                 <div class="d-grid">

@@ -8,6 +8,10 @@
 
     {include file='../images/svg/midtrans.svg'}
 
+  {elseif $icon == "xendit_mono"}
+
+    {include file='../images/svg/xendit_mono.svg'}
+
   {elseif $icon == "paypal"}
 
     {include file='../images/svg/paypal.svg'}
