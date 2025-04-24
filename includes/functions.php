@@ -4205,7 +4205,10 @@ function paypal_payment_link($handle, $price, $id = null)
 {
   global $system, $user;
   /* prepare */
-  $total = get_payment_total_value($price);
+  $total_on_system_currency = get_payment_total_value($price);
+  $usd_rate = get_exchange_rate('IDR');
+  $total = round($total_on_system_currency / $usd_rate, 2); 
+
   switch ($handle) {
     case 'packages':
       /* get package */
@@ -4297,19 +4300,20 @@ function paypal_payment_link($handle, $price, $id = null)
               'name' => $product,
               'sku' => 'item',
               'price' => $total,
-              'currency' => $system['system_currency'],
+              'currency' => 'USD',
               'quantity' => 1,
             ],
           ],
         ],
         'amount' => [
-          'currency' => $system['system_currency'],
+          'currency' => 'USD',
           'total' => $total,
         ],
         'description' => $description,
       ],
     ],
   ];
+    //throw new Exception('rate:' . $usd_rate . ' json:' . json_encode($request_body));
   $ch = curl_init();
   curl_setopt($ch, CURLOPT_URL, $paypal_api_url . '/v1/payments/payment');
   curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -4553,7 +4557,9 @@ function paypal_create_billing_plan($name, $description, $frequency, $interval, 
 {
   global $system;
   /* prepare total price */
-  $total = get_payment_total_value($amount);
+  $total_on_system_currency = get_payment_total_value($amount);
+  $usd_rate = get_exchange_rate('IDR');
+  $total = round($total_on_system_currency / $usd_rate, 2); 
   /* get access token */
   $access_token = paypal_access_token();
   /* prepare API url */
@@ -4614,7 +4620,7 @@ function paypal_create_billing_plan($name, $description, $frequency, $interval, 
         'pricing_scheme' => [
           'fixed_price' => [
             'value' => $total,
-            'currency_code' => $system['system_currency'],
+            'currency_code' => 'USD',
           ],
         ],
       ],
@@ -4623,7 +4629,7 @@ function paypal_create_billing_plan($name, $description, $frequency, $interval, 
       'auto_bill_outstanding' => true,
       'setup_fee' => [
         'value' => '0',
-        'currency_code' => $system['system_currency'],
+        'currency_code' => 'USD',
       ],
       'setup_fee_failure_action' => 'CONTINUE',
       'payment_failure_threshold' => 3,
@@ -4945,7 +4951,8 @@ function paypal_payout($amount, $email)
 {
   global $system;
   /* prepare total price */
-  $total = $amount;
+  $usd_rate = get_exchange_rate('IDR');
+  $total = round($amount / $usd_rate, 2); 
   /* get access token */
   $access_token = paypal_access_token();
   /* prepare API url */
@@ -4963,7 +4970,7 @@ function paypal_payout($amount, $email)
         'recipient_type' => 'EMAIL',
         'amount' => [
           'value' => $total,
-          'currency' => $system['system_currency'],
+          'currency' => 'USD',
         ],
         'sender_item_id' => uniqid(),
         'recipient_wallet' => 'PAYPAL',
@@ -7579,7 +7586,7 @@ function convert_money($value, $exchange_rate = null) {
     
     $rate = isset($exchange_rate) ? $exchange_rate : $system['current_currency_rate'];
 
-    if ($system['system_currency_id'] == $system['current_currency_id']) {
+    if ($system['system_currency_id'] == $system['current_currency_id'] && $exchange_rate == null) {
         return $value; 
     }
 
@@ -7604,6 +7611,19 @@ function money_placeholder() {
     }
     
     return $result;
+}
+
+function get_exchange_rate($country_code) {
+    global $system, $db;
+
+    $get_rate = $db->query(sprintf("SELECT exchange_rate FROM system_currencies WHERE code = %s", secure($country_code)));
+
+    if ($get_rate->num_rows > 0) {
+        $rate = $get_rate->fetch_assoc()['exchange_rate']; 
+        return $rate;
+    }
+
+    return null;
 }
 
 /**
