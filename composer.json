@@ -24,7 +24,8 @@
   "cashfree/cashfree-pg": "^4.2",
   "verotel/flexpay-php-client": "^5.1",
   "symfony/yaml": "^5.4",
-  "midtrans/midtrans-php": "^2.6"
+  "midtrans/midtrans-php": "^2.6",
+  "xendit/xendit-php": "^6.3"
  },
  "config": {
   "allow-plugins": {
