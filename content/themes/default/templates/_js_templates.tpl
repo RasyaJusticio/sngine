@@ -1906,15 +1906,6 @@
         </div>
         <div id="payment-methods" class="x-hidden">
           <div class="row justify-content-center text-center">
-            {if $system['paypal_enabled']}
-              <div class="col-12 col-sm-6 mb10">
-                <div class="d-grid">
-                  <button class="js_payment-paypal btn btn-md btn-payment" data-handle="{literal}{{handle}}{/literal}" {literal}{{#id}}{/literal} data-id="{literal}{{id}}{/literal}" {literal}{{/id}}{/literal} {literal}{{#price}}{/literal} data-price="{literal}{{price}}{/literal}" {literal}{{/price}}{/literal}>
-                    <i class="fab fa-paypal fa-lg fa-fw mr5" style="color: #00186A;"></i>{__("PayPal")}
-                  </button>
-                </div>
-              </div>
-            {/if}
             {if $system['midtrans_enabled']}
               <div class="col-12 col-sm-6 mb10">
                 <div class="d-grid">
@@ -1928,7 +1919,16 @@
               <div class="col-12 col-sm-6 mb10">
                 <div class="d-grid">
                   <button class="js_payment-xendit btn btn-md btn-payment" data-handle="{literal}{{handle}}{/literal}" {literal}{{#id}}{/literal} data-id="{literal}{{id}}{/literal}" {literal}{{/id}}{/literal} {literal}{{#price}}{/literal} data-price="{literal}{{price}}{/literal}" {literal}{{/price}}{/literal} style="height: 43.97px; padding: 0;">
-                    {include file='__svg_icons.tpl' icon="xendit_logo" class="main-icon" width="128px" height="28px"}
+                    {include file='__svg_icons.tpl' icon="xendit_logo" class="main-icon" width="128px" height="34px"}
+                  </button>
+                </div>
+              </div>
+            {/if}
+            {if $system['paypal_enabled']}
+              <div class="col-12 col-sm-6 mb10">
+                <div class="d-grid">
+                  <button class="js_payment-paypal btn btn-md btn-payment" data-handle="{literal}{{handle}}{/literal}" {literal}{{#id}}{/literal} data-id="{literal}{{id}}{/literal}" {literal}{{/id}}{/literal} {literal}{{#price}}{/literal} data-price="{literal}{{price}}{/literal}" {literal}{{/price}}{/literal}>
+                    <i class="fab fa-paypal fa-lg fa-fw mr5" style="color: #00186A;"></i>{__("PayPal")}
                   </button>
                 </div>
               </div>
