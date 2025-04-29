@@ -32,8 +32,8 @@ try {
             modal("SUCCESS", __("Subscribed"), __("You already subscribed to this package, Please select different package"));
         }
 
-        // get xendit redirect url
-        $payment_info = midtrans_payment_token("packages", $package['price'], $package['package_id']);
+        // get xendit link
+        $invoice_url = xendit_payment_link("packages", $package['price'], $package['package_id']);
         break;
 
     case 'wallet':
@@ -58,8 +58,8 @@ try {
             _error(400);
         }
 
-        // get midtrans snap token
-        $payment_info = midtrans_payment_token("donate", $_POST['price'], $_POST['post_id']);
+        // get xendit link
+        $invoice_url = xendit_payment_link("donate", $_POST['price'], $_POST['post_id']);
         break;
 
     case 'subscribe':
@@ -78,8 +78,8 @@ try {
             modal("SUCCESS", __("Subscribed"), __("You already subscribed to this") . " " . __($monetization_plan['node_type']));
         }
             
-        // get midtrans snap token
-        $payment_info = midtrans_payment_token("subscribe", $monetization_plan['price'], $_POST['plan_id']);
+        // get xendit link
+        $invoice_url = xendit_payment_link("subscribe", $monetization_plan['price'], $_POST['plan_id']);
         break;
 
     case 'paid_post':
@@ -97,8 +97,8 @@ try {
             throw new Exception(__("This post doesn't need payment"));
         }
 
-        // get midtrans snap token
-        $payment_info = midtrans_payment_token("paid_post", $post['post_price'], $_POST['post_id']);
+        // get xendit link
+        $invoice_url = xendit_payment_link("paid_post", $post['post_price'], $_POST['post_id']);
         break;
 
     case 'movies':
@@ -114,8 +114,8 @@ try {
             modal("SUCCESS", __("Paid"), __("You already paid to this movie"));
         }
 
-        // get midtrans snap token
-        $payment_info = midtrans_payment_token("movies", $movie['price'], $_POST['movie_id']);
+        // get xendit link
+        $invoice_url = xendit_payment_link("movies", $movie['price'], $_POST['movie_id']);
         break;
 
     case 'marketplace':
@@ -135,8 +135,8 @@ try {
             modal("SUCCESS", __("Paid"), __("You already paid to this order"));
         }
 
-        // get midtrans snap token
-        $payment_info = midtrans_payment_token("marketplace", $orders_collection['total'], $_POST['orders_collection_id']);
+        // get xendit link
+        $invoice_url = xendit_payment_link("marketplace", $orders_collection['total'], $_POST['orders_collection_id']);
         break;
 
     default:

@@ -4269,8 +4269,8 @@ function xendit_payment_check($external_id)
     if (!empty($result)) {
         return $result[0]['status'];
     }
-
-    return;
+    
+    return $result;
 }
 
 
@@ -7714,14 +7714,25 @@ function print_money($amount, $symbol = null, $dir = null)
 
 function convert_money($value, $exchange_rate = null) {
     global $system;
-    
-    $rate = isset($exchange_rate) ? $exchange_rate : $system['current_currency_rate'];
 
-    if ($system['system_currency_id'] == $system['current_currency_id'] && $exchange_rate == null) {
-        return $value; 
+    $targetRate = isset($exchange_rate) ? $exchange_rate : $system['current_currency_rate'];
+    $systemRate = $system['system_currency_rate'];
+
+    if ($system['system_currency_id'] == $system['current_currency_id'] && $exchange_rate === null) {
+        return $value;
     }
 
-    return $value * $rate; 
+    if ($exchange_rate === null) {
+        $valueInUSD = $value / $systemRate;
+
+        if ($system['current_currency'] === 'USD') {
+            return $valueInUSD;
+        }
+
+        return $valueInUSD * $targetRate;
+    }
+
+    return $value * $exchange_rate;
 }
 
 function format_money($value, $fraction_digits = null, $decimal_separator = ",", $thousands_separator = ".") {
