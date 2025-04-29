@@ -12,6 +12,10 @@
 
     {include file='../images/svg/xendit_mono.svg'}
 
+  {elseif $icon == "xendit_logo"}
+
+    {include file='../images/svg/xendit_logo.svg'}
+
   {elseif $icon == "paypal"}
 
     {include file='../images/svg/paypal.svg'}
